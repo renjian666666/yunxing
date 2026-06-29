@@ -688,7 +688,7 @@
     <!-- ===== 一、填空题 ===== -->
     <h2 class="section-title">一、填空题 <span class="text-muted">（共17题）</span></h2>
 
-    <!-- 1~17 填空题 (保持不变) -->
+    <!-- 1~17 填空题 -->
     <div class="question-card">
         <div class="q-title">1. 视在功率是电路的 ____。</div>
         <div class="input-row">
@@ -830,7 +830,7 @@
     <!-- ===== 二、单选题 ===== -->
     <h2 class="section-title">二、单项选择题 <span class="text-muted">（共20题）</span></h2>
 
-    <!-- 1~20 单选题 (保持不变) -->
+    <!-- 1~20 单选题 -->
     <div class="question-card">
         <div class="q-title">1. 快速切除线路任意一点故障的主保护是（）</div>
         <div class="opt-item"><input type="radio" name="rad1" value="A"> <label>A. 距离保护</label></div>
@@ -1013,7 +1013,7 @@
     </div>
 
 
-    <!-- ===== 三、判断题（改为选择模式：正确 / 错误） ===== -->
+    <!-- ===== 三、判断题（选择模式） ===== -->
     <h2 class="section-title">三、判断题 <span class="text-muted">（选择正确或错误）</span></h2>
 
     <!-- 1 -->
@@ -1211,7 +1211,8 @@
                 3: { ans: "×", desc: "✅ 正确答案：×，零序电流分布和中性点接地数量、位置强相关" },
                 4: { ans: "×", desc: "✅ 正确答案：×，220kV 及以上采用近后备" },
                 5: { ans: "×", desc: "✅ 正确答案：×，保护范围受运行方式影响变化" },
-                6: { ans: "×", desc: "✅ 正确答案：√，预告信号由警铃和光字牌组成" },
+                // 第6题已修正为正确
+                6: { ans: "√", desc: "✅ 正确答案：√，预告信号包括警铃和光字牌" },
                 7: { ans: "×", desc: "✅ 正确答案：×，零序阻抗随接线组别变化" },
                 8: { ans: "×", desc: "✅ 正确答案：×，每次动作都要统计" },
                 9: { ans: "×", desc: "✅ 正确答案：×，需专用过励磁保护，不是负序过流" },
@@ -1332,7 +1333,7 @@
                 '',
                 '【三、判断题 答案】',
                 '1.√  2.√  3.×  4.×  5.×',
-                '6.×  7.×  8.×  9.×  10.×',
+                '6.√  7.×  8.×  9.×  10.×',
                 '11.× 12.√ 13.× 14.√ 15.×',
                 '16.√ 17.√',
                 '',
@@ -1386,7 +1387,6 @@
                     const name = radio.name;
                     if (name && name.startsWith('jud')) {
                         const num = name.replace('jud', '');
-                        // 检查是否选中了该组的某个选项
                         const group = document.getElementsByName(name);
                         let checked = false;
                         for (const r of group) {
@@ -1395,7 +1395,6 @@
                         if (checked) {
                             checkJudge(num);
                         } else {
-                            // 如果没有选中，触发一次警告
                             const tip = document.getElementById('judTip' + num);
                             tip.style.display = 'block';
                             tip.className = 'answer-tip warning';
