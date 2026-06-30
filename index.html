@@ -274,34 +274,49 @@
             margin-bottom: 10px;
             line-height: 1.6;
         }
+
         .opt-item {
-            margin: 6px 0;
-            font-size: 15px;
-            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 4px 0;
-            border-radius: 4px;
-            transition: background 0.1s;
+            gap: 10px;
+            padding: 10px 14px;
+            margin: 4px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.15s;
+            background: transparent;
+            border: 1px solid transparent;
+            font-size: 15px;
+            color: #1e293b;
+            user-select: none;
         }
         .opt-item:hover {
-            background: #f6f9ff;
+            background: #f0f6ff;
+            border-color: #cbd5e1;
         }
         .opt-item input[type="radio"] {
+            flex-shrink: 0;
             width: 18px;
             height: 18px;
             accent-color: #2563eb;
             cursor: pointer;
-            flex-shrink: 0;
+            margin: 0;
         }
-        .opt-item label {
-            cursor: pointer;
-            font-size: 15px;
-            color: #1e293b;
-            user-select: none;
-            padding: 2px 0;
+        .opt-item .option-text {
+            flex: 1;
+            line-height: 1.4;
         }
+        @media (max-width: 640px) {
+            .opt-item {
+                padding: 12px 14px;
+                gap: 12px;
+            }
+            .opt-item input[type="radio"] {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
         .input-row {
             display: flex;
             flex-wrap: wrap;
@@ -427,6 +442,68 @@
             padding-top: 18px;
         }
 
+        /* ===== 倒计时提示条（新增） ===== */
+        .countdown-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1e293b;
+            color: #fff;
+            padding: 14px 20px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            z-index: 999;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
+            font-size: 16px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .countdown-bar .countdown-text {
+            font-weight: 500;
+        }
+        .countdown-bar .countdown-num {
+            display: inline-block;
+            min-width: 32px;
+            font-weight: 700;
+            color: #60a5fa;
+            font-size: 20px;
+        }
+        .countdown-bar .countdown-btn {
+            padding: 6px 18px;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .countdown-bar .countdown-btn:hover {
+            background: #1a4cbf;
+        }
+        .countdown-bar .countdown-btn.cancel-btn {
+            background: #475569;
+        }
+        .countdown-bar .countdown-btn.cancel-btn:hover {
+            background: #334155;
+        }
+        @media (max-width: 640px) {
+            .countdown-bar {
+                padding: 12px 16px;
+                font-size: 14px;
+                gap: 10px;
+            }
+            .countdown-bar .countdown-btn {
+                font-size: 13px;
+                padding: 5px 14px;
+            }
+        }
+
         /* ===== 响应式 ===== */
         @media (max-width: 640px) {
             body {
@@ -487,15 +564,12 @@
             }
             .opt-item {
                 font-size: 14px;
-                padding: 6px 0;
-                gap: 10px;
+                padding: 12px 14px;
+                gap: 12px;
             }
             .opt-item input[type="radio"] {
-                width: 20px;
-                height: 20px;
-            }
-            .opt-item label {
-                font-size: 14px;
+                width: 22px;
+                height: 22px;
             }
             .submit-btn {
                 padding: 8px 16px;
@@ -582,7 +656,8 @@
         @media print {
             .submit-btn,
             .download-btn,
-            .nav-tabs {
+            .nav-tabs,
+            .countdown-bar {
                 display: none !important;
             }
             .tab-content {
@@ -617,6 +692,9 @@
             }
             .maker-stamp-top {
                 border-bottom-color: #ccc !important;
+            }
+            .opt-item {
+                padding: 6px 8px;
             }
         }
     </style>
@@ -672,26 +750,26 @@
     <div class="tab-content" id="tab-choice">
         <h2 class="section-title">单项选择题 <span class="text-muted">（共20题）</span></h2>
 
-        <div class="question-card"><div class="q-title">1. 快速切除线路任意一点故障的主保护是（）</div><div class="opt-item"><input type="radio" name="rad1" value="A"><label>A. 距离保护</label></div><div class="opt-item"><input type="radio" name="rad1" value="B"><label>B. 零序电流保护</label></div><div class="opt-item"><input type="radio" name="rad1" value="C"><label>C. 纵联保护</label></div><div class="opt-item"><input type="radio" name="rad1" value="D"><label>D. 功率方向保护</label></div><button class="submit-btn" onclick="checkRadio(1)">提交答案</button><div class="answer-tip" id="radTip1"></div></div>
-        <div class="question-card"><div class="q-title">2. 主保护或断路器拒动时，用来切除故障的保护是（）</div><div class="opt-item"><input type="radio" name="rad2" value="A"><label>A. 后备保护</label></div><div class="opt-item"><input type="radio" name="rad2" value="B"><label>B. 异常运行保护</label></div><div class="opt-item"><input type="radio" name="rad2" value="C"><label>C. 辅助保护</label></div><div class="opt-item"><input type="radio" name="rad2" value="D"><label>D. 备用保护</label></div><button class="submit-btn" onclick="checkRadio(2)">提交答案</button><div class="answer-tip" id="radTip2"></div></div>
-        <div class="question-card"><div class="q-title">3. 测量交流电流回路的绝缘电阻使用（）摇表</div><div class="opt-item"><input type="radio" name="rad3" value="A"><label>A. 2000V</label></div><div class="opt-item"><input type="radio" name="rad3" value="B"><label>B. 1500V</label></div><div class="opt-item"><input type="radio" name="rad3" value="C"><label>C. 1000V</label></div><div class="opt-item"><input type="radio" name="rad3" value="D"><label>D. 500V</label></div><button class="submit-btn" onclick="checkRadio(3)">提交答案</button><div class="answer-tip" id="radTip3"></div></div>
-        <div class="question-card"><div class="q-title">4. 60～110kV电压等级的设备不停电时的安全距离是（）</div><div class="opt-item"><input type="radio" name="rad4" value="A"><label>A. 2.0米</label></div><div class="opt-item"><input type="radio" name="rad4" value="B"><label>B. 1.5米</label></div><div class="opt-item"><input type="radio" name="rad4" value="C"><label>C. 1.0米</label></div><div class="opt-item"><input type="radio" name="rad4" value="D"><label>D. 0.5米</label></div><button class="submit-btn" onclick="checkRadio(4)">提交答案</button><div class="answer-tip" id="radTip4"></div></div>
-        <div class="question-card"><div class="q-title">5. 瓦斯继电器中，轻瓦斯定值是指（）</div><div class="opt-item"><input type="radio" name="rad5" value="A"><label>A. 接点动作时的气体容积</label></div><div class="opt-item"><input type="radio" name="rad5" value="B"><label>B. 油流速度</label></div><div class="opt-item"><input type="radio" name="rad5" value="C"><label>C. 气流速度</label></div><div class="opt-item"><input type="radio" name="rad5" value="D"><label>D. 以上都不是</label></div><button class="submit-btn" onclick="checkRadio(5)">提交答案</button><div class="answer-tip" id="radTip5"></div></div>
-        <div class="question-card"><div class="q-title">6. 电压互感器其二次值一般是（）</div><div class="opt-item"><input type="radio" name="rad6" value="A"><label>A. 50V</label></div><div class="opt-item"><input type="radio" name="rad6" value="B"><label>B. 100V</label></div><div class="opt-item"><input type="radio" name="rad6" value="C"><label>C. 170V</label></div><div class="opt-item"><input type="radio" name="rad6" value="D"><label>D. 200V</label></div><button class="submit-btn" onclick="checkRadio(6)">提交答案</button><div class="answer-tip" id="radTip6"></div></div>
-        <div class="question-card"><div class="q-title">7. 金属导体的电阻值随温度的升高而（）</div><div class="opt-item"><input type="radio" name="rad7" value="A"><label>A. 增大</label></div><div class="opt-item"><input type="radio" name="rad7" value="B"><label>B. 减小</label></div><div class="opt-item"><input type="radio" name="rad7" value="C"><label>C. 不确定</label></div><div class="opt-item"><input type="radio" name="rad7" value="D"><label>D. 不变</label></div><button class="submit-btn" onclick="checkRadio(7)">提交答案</button><div class="answer-tip" id="radTip7"></div></div>
-        <div class="question-card"><div class="q-title">8. 变压器励磁涌流中含有大量高次谐波，其中以（）为主</div><div class="opt-item"><input type="radio" name="rad8" value="A"><label>A. 二次谐波</label></div><div class="opt-item"><input type="radio" name="rad8" value="B"><label>B. 三次谐波</label></div><div class="opt-item"><input type="radio" name="rad8" value="C"><label>C. 五次谐波</label></div><div class="opt-item"><input type="radio" name="rad8" value="D"><label>D. 六次谐波</label></div><button class="submit-btn" onclick="checkRadio(8)">提交答案</button><div class="answer-tip" id="radTip8"></div></div>
-        <div class="question-card"><div class="q-title">9. 继电保护人员到现场进行事故调查分析工作，他可以担任的角色是（）</div><div class="opt-item"><input type="radio" name="rad9" value="A"><label>A. 工作负责人</label></div><div class="opt-item"><input type="radio" name="rad9" value="B"><label>B. 工作票签发人</label></div><div class="opt-item"><input type="radio" name="rad9" value="C"><label>C. 工作班人员</label></div><div class="opt-item"><input type="radio" name="rad9" value="D"><label>D. 工作许可人</label></div><button class="submit-btn" onclick="checkRadio(9)">提交答案</button><div class="answer-tip" id="radTip9"></div></div>
-        <div class="question-card"><div class="q-title">10. （）回路不属于二次回路</div><div class="opt-item"><input type="radio" name="rad10" value="A"><label>A. 继电保护和自动装置回路</label></div><div class="opt-item"><input type="radio" name="rad10" value="B"><label>B. 直流系统监察装置回路</label></div><div class="opt-item"><input type="radio" name="rad10" value="C"><label>C. 发电机同期装置回路</label></div><div class="opt-item"><input type="radio" name="rad10" value="D"><label>D. 发电机励磁回路</label></div><button class="submit-btn" onclick="checkRadio(10)">提交答案</button><div class="answer-tip" id="radTip10"></div></div>
-        <div class="question-card"><div class="q-title">11. 电压互感器二次回路中，每相电缆上的压降不应超过额定电压的（）</div><div class="opt-item"><input type="radio" name="rad11" value="A"><label>A. 0.1</label></div><div class="opt-item"><input type="radio" name="rad11" value="B"><label>B. 0.03</label></div><div class="opt-item"><input type="radio" name="rad11" value="C"><label>C. 0.05</label></div><div class="opt-item"><input type="radio" name="rad11" value="D"><label>D. 0.08</label></div><button class="submit-btn" onclick="checkRadio(11)">提交答案</button><div class="answer-tip" id="radTip11"></div></div>
-        <div class="question-card"><div class="q-title">12. 备用电源自投装置从接线上应保证动作（）</div><div class="opt-item"><input type="radio" name="rad12" value="A"><label>A. 一次</label></div><div class="opt-item"><input type="radio" name="rad12" value="B"><label>B. 两次</label></div><div class="opt-item"><input type="radio" name="rad12" value="C"><label>C. 三次</label></div><div class="opt-item"><input type="radio" name="rad12" value="D"><label>D. 多次</label></div><button class="submit-btn" onclick="checkRadio(12)">提交答案</button><div class="answer-tip" id="radTip12"></div></div>
-        <div class="question-card"><div class="q-title">13. 短路电流量最大的短路为（）</div><div class="opt-item"><input type="radio" name="rad13" value="A"><label>A. 单相短路</label></div><div class="opt-item"><input type="radio" name="rad13" value="B"><label>B. 两相短路</label></div><div class="opt-item"><input type="radio" name="rad13" value="C"><label>C. 两相短路接地</label></div><div class="opt-item"><input type="radio" name="rad13" value="D"><label>D. 三相短路</label></div><button class="submit-btn" onclick="checkRadio(13)">提交答案</button><div class="answer-tip" id="radTip13"></div></div>
-        <div class="question-card"><div class="q-title">14. 下列保护中，属于后备保护的是（）</div><div class="opt-item"><input type="radio" name="rad14" value="A"><label>A. 变压器差动保护</label></div><div class="opt-item"><input type="radio" name="rad14" value="B"><label>B. 高频闭锁零序保护</label></div><div class="opt-item"><input type="radio" name="rad14" value="C"><label>C. 断路器失灵保护</label></div><div class="opt-item"><input type="radio" name="rad14" value="D"><label>D. 瓦斯保护</label></div><button class="submit-btn" onclick="checkRadio(14)">提交答案</button><div class="answer-tip" id="radTip14"></div></div>
-        <div class="question-card"><div class="q-title">15. 方向阻抗继电器受电网频率变化影响较大的回路是（）</div><div class="opt-item"><input type="radio" name="rad15" value="A"><label>A. 记忆回路</label></div><div class="opt-item"><input type="radio" name="rad15" value="B"><label>B. 相位比较回路</label></div><div class="opt-item"><input type="radio" name="rad15" value="C"><label>C. 幅值比较回路</label></div><div class="opt-item"><input type="radio" name="rad15" value="D"><label>D. 执行元件回路</label></div><button class="submit-btn" onclick="checkRadio(15)">提交答案</button><div class="answer-tip" id="radTip15"></div></div>
-        <div class="question-card"><div class="q-title">16. 电力系统发生振荡时，（）可能会发生误动</div><div class="opt-item"><input type="radio" name="rad16" value="A"><label>A. 负序电流保护</label></div><div class="opt-item"><input type="radio" name="rad16" value="B"><label>B. 零序电流速断保护</label></div><div class="opt-item"><input type="radio" name="rad16" value="C"><label>C. 零序电压保护</label></div><div class="opt-item"><input type="radio" name="rad16" value="D"><label>D. 电流速断保护</label></div><button class="submit-btn" onclick="checkRadio(16)">提交答案</button><div class="answer-tip" id="radTip16"></div></div>
-        <div class="question-card"><div class="q-title">17. 快速切除线路和母线的短路故障，是提高电力系统（）的重要手段</div><div class="opt-item"><input type="radio" name="rad17" value="A"><label>A. 静态稳定</label></div><div class="opt-item"><input type="radio" name="rad17" value="B"><label>B. 暂态稳定</label></div><div class="opt-item"><input type="radio" name="rad17" value="C"><label>C. 动态稳定</label></div><div class="opt-item"><input type="radio" name="rad17" value="D"><label>D. 小干扰稳定</label></div><button class="submit-btn" onclick="checkRadio(17)">提交答案</button><div class="answer-tip" id="radTip17"></div></div>
-        <div class="question-card"><div class="q-title">18. 避雷器与被保护设备的距离，就保护效果来说（）</div><div class="opt-item"><input type="radio" name="rad18" value="A"><label>A. 越远越好</label></div><div class="opt-item"><input type="radio" name="rad18" value="B"><label>B. 越近越好</label></div><div class="opt-item"><input type="radio" name="rad18" value="C"><label>C. 符合安规要求</label></div><div class="opt-item"><input type="radio" name="rad18" value="D"><label>D. 距离大于1米</label></div><button class="submit-btn" onclick="checkRadio(18)">提交答案</button><div class="answer-tip" id="radTip18"></div></div>
-        <div class="question-card"><div class="q-title">19. 发电机失磁后，需从系统中吸取（）功率，将造成系统电压下降</div><div class="opt-item"><input type="radio" name="rad19" value="A"><label>A. 有功</label></div><div class="opt-item"><input type="radio" name="rad19" value="B"><label>B. 无功</label></div><div class="opt-item"><input type="radio" name="rad19" value="C"><label>C. 有功和无功</label></div><div class="opt-item"><input type="radio" name="rad19" value="D"><label>D. 视在</label></div><button class="submit-btn" onclick="checkRadio(19)">提交答案</button><div class="answer-tip" id="radTip19"></div></div>
-        <div class="question-card"><div class="q-title">20. 二次回路电缆芯线用于保护和测量仪表中电流回路的导线截面不应小于（）</div><div class="opt-item"><input type="radio" name="rad20" value="A"><label>A. 1.5mm²</label></div><div class="opt-item"><input type="radio" name="rad20" value="B"><label>B. 2.5mm²</label></div><div class="opt-item"><input type="radio" name="rad20" value="C"><label>C. 3.5mm²</label></div><div class="opt-item"><input type="radio" name="rad20" value="D"><label>D. 4.5mm²</label></div><button class="submit-btn" onclick="checkRadio(20)">提交答案</button><div class="answer-tip" id="radTip20"></div></div>
+        <div class="question-card"><div class="q-title">1. 快速切除线路任意一点故障的主保护是（）</div><label class="opt-item"><input type="radio" name="rad1" value="A"><span class="option-text">A. 距离保护</span></label><label class="opt-item"><input type="radio" name="rad1" value="B"><span class="option-text">B. 零序电流保护</span></label><label class="opt-item"><input type="radio" name="rad1" value="C"><span class="option-text">C. 纵联保护</span></label><label class="opt-item"><input type="radio" name="rad1" value="D"><span class="option-text">D. 功率方向保护</span></label><button class="submit-btn" onclick="checkRadio(1)">提交答案</button><div class="answer-tip" id="radTip1"></div></div>
+        <div class="question-card"><div class="q-title">2. 主保护或断路器拒动时，用来切除故障的保护是（）</div><label class="opt-item"><input type="radio" name="rad2" value="A"><span class="option-text">A. 后备保护</span></label><label class="opt-item"><input type="radio" name="rad2" value="B"><span class="option-text">B. 异常运行保护</span></label><label class="opt-item"><input type="radio" name="rad2" value="C"><span class="option-text">C. 辅助保护</span></label><label class="opt-item"><input type="radio" name="rad2" value="D"><span class="option-text">D. 备用保护</span></label><button class="submit-btn" onclick="checkRadio(2)">提交答案</button><div class="answer-tip" id="radTip2"></div></div>
+        <div class="question-card"><div class="q-title">3. 测量交流电流回路的绝缘电阻使用（）摇表</div><label class="opt-item"><input type="radio" name="rad3" value="A"><span class="option-text">A. 2000V</span></label><label class="opt-item"><input type="radio" name="rad3" value="B"><span class="option-text">B. 1500V</span></label><label class="opt-item"><input type="radio" name="rad3" value="C"><span class="option-text">C. 1000V</span></label><label class="opt-item"><input type="radio" name="rad3" value="D"><span class="option-text">D. 500V</span></label><button class="submit-btn" onclick="checkRadio(3)">提交答案</button><div class="answer-tip" id="radTip3"></div></div>
+        <div class="question-card"><div class="q-title">4. 60～110kV电压等级的设备不停电时的安全距离是（）</div><label class="opt-item"><input type="radio" name="rad4" value="A"><span class="option-text">A. 2.0米</span></label><label class="opt-item"><input type="radio" name="rad4" value="B"><span class="option-text">B. 1.5米</span></label><label class="opt-item"><input type="radio" name="rad4" value="C"><span class="option-text">C. 1.0米</span></label><label class="opt-item"><input type="radio" name="rad4" value="D"><span class="option-text">D. 0.5米</span></label><button class="submit-btn" onclick="checkRadio(4)">提交答案</button><div class="answer-tip" id="radTip4"></div></div>
+        <div class="question-card"><div class="q-title">5. 瓦斯继电器中，轻瓦斯定值是指（）</div><label class="opt-item"><input type="radio" name="rad5" value="A"><span class="option-text">A. 接点动作时的气体容积</span></label><label class="opt-item"><input type="radio" name="rad5" value="B"><span class="option-text">B. 油流速度</span></label><label class="opt-item"><input type="radio" name="rad5" value="C"><span class="option-text">C. 气流速度</span></label><label class="opt-item"><input type="radio" name="rad5" value="D"><span class="option-text">D. 以上都不是</span></label><button class="submit-btn" onclick="checkRadio(5)">提交答案</button><div class="answer-tip" id="radTip5"></div></div>
+        <div class="question-card"><div class="q-title">6. 电压互感器其二次值一般是（）</div><label class="opt-item"><input type="radio" name="rad6" value="A"><span class="option-text">A. 50V</span></label><label class="opt-item"><input type="radio" name="rad6" value="B"><span class="option-text">B. 100V</span></label><label class="opt-item"><input type="radio" name="rad6" value="C"><span class="option-text">C. 170V</span></label><label class="opt-item"><input type="radio" name="rad6" value="D"><span class="option-text">D. 200V</span></label><button class="submit-btn" onclick="checkRadio(6)">提交答案</button><div class="answer-tip" id="radTip6"></div></div>
+        <div class="question-card"><div class="q-title">7. 金属导体的电阻值随温度的升高而（）</div><label class="opt-item"><input type="radio" name="rad7" value="A"><span class="option-text">A. 增大</span></label><label class="opt-item"><input type="radio" name="rad7" value="B"><span class="option-text">B. 减小</span></label><label class="opt-item"><input type="radio" name="rad7" value="C"><span class="option-text">C. 不确定</span></label><label class="opt-item"><input type="radio" name="rad7" value="D"><span class="option-text">D. 不变</span></label><button class="submit-btn" onclick="checkRadio(7)">提交答案</button><div class="answer-tip" id="radTip7"></div></div>
+        <div class="question-card"><div class="q-title">8. 变压器励磁涌流中含有大量高次谐波，其中以（）为主</div><label class="opt-item"><input type="radio" name="rad8" value="A"><span class="option-text">A. 二次谐波</span></label><label class="opt-item"><input type="radio" name="rad8" value="B"><span class="option-text">B. 三次谐波</span></label><label class="opt-item"><input type="radio" name="rad8" value="C"><span class="option-text">C. 五次谐波</span></label><label class="opt-item"><input type="radio" name="rad8" value="D"><span class="option-text">D. 六次谐波</span></label><button class="submit-btn" onclick="checkRadio(8)">提交答案</button><div class="answer-tip" id="radTip8"></div></div>
+        <div class="question-card"><div class="q-title">9. 继电保护人员到现场进行事故调查分析工作，他可以担任的角色是（）</div><label class="opt-item"><input type="radio" name="rad9" value="A"><span class="option-text">A. 工作负责人</span></label><label class="opt-item"><input type="radio" name="rad9" value="B"><span class="option-text">B. 工作票签发人</span></label><label class="opt-item"><input type="radio" name="rad9" value="C"><span class="option-text">C. 工作班人员</span></label><label class="opt-item"><input type="radio" name="rad9" value="D"><span class="option-text">D. 工作许可人</span></label><button class="submit-btn" onclick="checkRadio(9)">提交答案</button><div class="answer-tip" id="radTip9"></div></div>
+        <div class="question-card"><div class="q-title">10. （）回路不属于二次回路</div><label class="opt-item"><input type="radio" name="rad10" value="A"><span class="option-text">A. 继电保护和自动装置回路</span></label><label class="opt-item"><input type="radio" name="rad10" value="B"><span class="option-text">B. 直流系统监察装置回路</span></label><label class="opt-item"><input type="radio" name="rad10" value="C"><span class="option-text">C. 发电机同期装置回路</span></label><label class="opt-item"><input type="radio" name="rad10" value="D"><span class="option-text">D. 发电机励磁回路</span></label><button class="submit-btn" onclick="checkRadio(10)">提交答案</button><div class="answer-tip" id="radTip10"></div></div>
+        <div class="question-card"><div class="q-title">11. 电压互感器二次回路中，每相电缆上的压降不应超过额定电压的（）</div><label class="opt-item"><input type="radio" name="rad11" value="A"><span class="option-text">A. 0.1</span></label><label class="opt-item"><input type="radio" name="rad11" value="B"><span class="option-text">B. 0.03</span></label><label class="opt-item"><input type="radio" name="rad11" value="C"><span class="option-text">C. 0.05</span></label><label class="opt-item"><input type="radio" name="rad11" value="D"><span class="option-text">D. 0.08</span></label><button class="submit-btn" onclick="checkRadio(11)">提交答案</button><div class="answer-tip" id="radTip11"></div></div>
+        <div class="question-card"><div class="q-title">12. 备用电源自投装置从接线上应保证动作（）</div><label class="opt-item"><input type="radio" name="rad12" value="A"><span class="option-text">A. 一次</span></label><label class="opt-item"><input type="radio" name="rad12" value="B"><span class="option-text">B. 两次</span></label><label class="opt-item"><input type="radio" name="rad12" value="C"><span class="option-text">C. 三次</span></label><label class="opt-item"><input type="radio" name="rad12" value="D"><span class="option-text">D. 多次</span></label><button class="submit-btn" onclick="checkRadio(12)">提交答案</button><div class="answer-tip" id="radTip12"></div></div>
+        <div class="question-card"><div class="q-title">13. 短路电流量最大的短路为（）</div><label class="opt-item"><input type="radio" name="rad13" value="A"><span class="option-text">A. 单相短路</span></label><label class="opt-item"><input type="radio" name="rad13" value="B"><span class="option-text">B. 两相短路</span></label><label class="opt-item"><input type="radio" name="rad13" value="C"><span class="option-text">C. 两相短路接地</span></label><label class="opt-item"><input type="radio" name="rad13" value="D"><span class="option-text">D. 三相短路</span></label><button class="submit-btn" onclick="checkRadio(13)">提交答案</button><div class="answer-tip" id="radTip13"></div></div>
+        <div class="question-card"><div class="q-title">14. 下列保护中，属于后备保护的是（）</div><label class="opt-item"><input type="radio" name="rad14" value="A"><span class="option-text">A. 变压器差动保护</span></label><label class="opt-item"><input type="radio" name="rad14" value="B"><span class="option-text">B. 高频闭锁零序保护</span></label><label class="opt-item"><input type="radio" name="rad14" value="C"><span class="option-text">C. 断路器失灵保护</span></label><label class="opt-item"><input type="radio" name="rad14" value="D"><span class="option-text">D. 瓦斯保护</span></label><button class="submit-btn" onclick="checkRadio(14)">提交答案</button><div class="answer-tip" id="radTip14"></div></div>
+        <div class="question-card"><div class="q-title">15. 方向阻抗继电器受电网频率变化影响较大的回路是（）</div><label class="opt-item"><input type="radio" name="rad15" value="A"><span class="option-text">A. 记忆回路</span></label><label class="opt-item"><input type="radio" name="rad15" value="B"><span class="option-text">B. 相位比较回路</span></label><label class="opt-item"><input type="radio" name="rad15" value="C"><span class="option-text">C. 幅值比较回路</span></label><label class="opt-item"><input type="radio" name="rad15" value="D"><span class="option-text">D. 执行元件回路</span></label><button class="submit-btn" onclick="checkRadio(15)">提交答案</button><div class="answer-tip" id="radTip15"></div></div>
+        <div class="question-card"><div class="q-title">16. 电力系统发生振荡时，（）可能会发生误动</div><label class="opt-item"><input type="radio" name="rad16" value="A"><span class="option-text">A. 负序电流保护</span></label><label class="opt-item"><input type="radio" name="rad16" value="B"><span class="option-text">B. 零序电流速断保护</span></label><label class="opt-item"><input type="radio" name="rad16" value="C"><span class="option-text">C. 零序电压保护</span></label><label class="opt-item"><input type="radio" name="rad16" value="D"><span class="option-text">D. 电流速断保护</span></label><button class="submit-btn" onclick="checkRadio(16)">提交答案</button><div class="answer-tip" id="radTip16"></div></div>
+        <div class="question-card"><div class="q-title">17. 快速切除线路和母线的短路故障，是提高电力系统（）的重要手段</div><label class="opt-item"><input type="radio" name="rad17" value="A"><span class="option-text">A. 静态稳定</span></label><label class="opt-item"><input type="radio" name="rad17" value="B"><span class="option-text">B. 暂态稳定</span></label><label class="opt-item"><input type="radio" name="rad17" value="C"><span class="option-text">C. 动态稳定</span></label><label class="opt-item"><input type="radio" name="rad17" value="D"><span class="option-text">D. 小干扰稳定</span></label><button class="submit-btn" onclick="checkRadio(17)">提交答案</button><div class="answer-tip" id="radTip17"></div></div>
+        <div class="question-card"><div class="q-title">18. 避雷器与被保护设备的距离，就保护效果来说（）</div><label class="opt-item"><input type="radio" name="rad18" value="A"><span class="option-text">A. 越远越好</span></label><label class="opt-item"><input type="radio" name="rad18" value="B"><span class="option-text">B. 越近越好</span></label><label class="opt-item"><input type="radio" name="rad18" value="C"><span class="option-text">C. 符合安规要求</span></label><label class="opt-item"><input type="radio" name="rad18" value="D"><span class="option-text">D. 距离大于1米</span></label><button class="submit-btn" onclick="checkRadio(18)">提交答案</button><div class="answer-tip" id="radTip18"></div></div>
+        <div class="question-card"><div class="q-title">19. 发电机失磁后，需从系统中吸取（）功率，将造成系统电压下降</div><label class="opt-item"><input type="radio" name="rad19" value="A"><span class="option-text">A. 有功</span></label><label class="opt-item"><input type="radio" name="rad19" value="B"><span class="option-text">B. 无功</span></label><label class="opt-item"><input type="radio" name="rad19" value="C"><span class="option-text">C. 有功和无功</span></label><label class="opt-item"><input type="radio" name="rad19" value="D"><span class="option-text">D. 视在</span></label><button class="submit-btn" onclick="checkRadio(19)">提交答案</button><div class="answer-tip" id="radTip19"></div></div>
+        <div class="question-card"><div class="q-title">20. 二次回路电缆芯线用于保护和测量仪表中电流回路的导线截面不应小于（）</div><label class="opt-item"><input type="radio" name="rad20" value="A"><span class="option-text">A. 1.5mm²</span></label><label class="opt-item"><input type="radio" name="rad20" value="B"><span class="option-text">B. 2.5mm²</span></label><label class="opt-item"><input type="radio" name="rad20" value="C"><span class="option-text">C. 3.5mm²</span></label><label class="opt-item"><input type="radio" name="rad20" value="D"><span class="option-text">D. 4.5mm²</span></label><button class="submit-btn" onclick="checkRadio(20)">提交答案</button><div class="answer-tip" id="radTip20"></div></div>
     </div>
 
     <!-- ============================================================ -->
@@ -700,23 +778,23 @@
     <div class="tab-content" id="tab-judge">
         <h2 class="section-title">判断题 <span class="text-muted">（选择正确或错误）</span></h2>
 
-        <div class="question-card"><div class="q-title">1. 通常所说的负载大小是指负载电流的大小。</div><div class="opt-item"><input type="radio" name="jud1" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud1" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(1)">提交答案</button><div class="answer-tip" id="judTip1"></div></div>
-        <div class="question-card"><div class="q-title">2. 一个线圈中，通以恒定电流时不产生自感电动势。</div><div class="opt-item"><input type="radio" name="jud2" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud2" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(2)">提交答案</button><div class="answer-tip" id="judTip2"></div></div>
-        <div class="question-card"><div class="q-title">3. 零序电流的分布与电源点的分布有关，与中性点接地的多少及位置无关。</div><div class="opt-item"><input type="radio" name="jud3" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud3" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(3)">提交答案</button><div class="answer-tip" id="judTip3"></div></div>
-        <div class="question-card"><div class="q-title">4. 220kV线路保护宜采用远后备方式，110kV线路保护宜采用近后备方式。</div><div class="opt-item"><input type="radio" name="jud4" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud4" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(4)">提交答案</button><div class="answer-tip" id="judTip4"></div></div>
-        <div class="question-card"><div class="q-title">5. 电流速断保护的保护范围，在各种运行方式下不会改变。</div><div class="opt-item"><input type="radio" name="jud5" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud5" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(5)">提交答案</button><div class="answer-tip" id="judTip5"></div></div>
-        <div class="question-card"><div class="q-title">6. 预告信号包括警铃和控制屏上的光字牌。</div><div class="opt-item"><input type="radio" name="jud6" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud6" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(6)">提交答案</button><div class="answer-tip" id="judTip6"></div></div>
-        <div class="question-card"><div class="q-title">7. 电力变压器不管其接线方式如何，其正、负、零序阻抗均相等。</div><div class="opt-item"><input type="radio" name="jud7" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud7" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(7)">提交答案</button><div class="answer-tip" id="judTip7"></div></div>
-        <div class="question-card"><div class="q-title">8. 微机保护动作后，若无打印报告则不论动作多少次只作1次统计。</div><div class="opt-item"><input type="radio" name="jud8" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud8" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(8)">提交答案</button><div class="answer-tip" id="judTip8"></div></div>
-        <div class="question-card"><div class="q-title">9. 为防御变压器过励磁应装设负序过电流保护。</div><div class="opt-item"><input type="radio" name="jud9" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud9" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(9)">提交答案</button><div class="answer-tip" id="judTip9"></div></div>
-        <div class="question-card"><div class="q-title">10. 变压器内部故障系指变压器线圈内发生故障。</div><div class="opt-item"><input type="radio" name="jud10" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud10" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(10)">提交答案</button><div class="answer-tip" id="judTip10"></div></div>
-        <div class="question-card"><div class="q-title">11. 保护的装置动作时间是指从保护开始动作到断路器跳开所经历的全部时间。</div><div class="opt-item"><input type="radio" name="jud11" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud11" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(11)">提交答案</button><div class="answer-tip" id="judTip11"></div></div>
-        <div class="question-card"><div class="q-title">12. 变压器差动保护不能代替瓦斯保护。</div><div class="opt-item"><input type="radio" name="jud12" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud12" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(12)">提交答案</button><div class="answer-tip" id="judTip12"></div></div>
-        <div class="question-card"><div class="q-title">13. 交直流回路可共用一条电缆，因为交直流回路都是独立系统。</div><div class="opt-item"><input type="radio" name="jud13" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud13" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(13)">提交答案</button><div class="answer-tip" id="judTip13"></div></div>
-        <div class="question-card"><div class="q-title">14. 发电机启动和停机保护，在正常工频运行时应退出。</div><div class="opt-item"><input type="radio" name="jud14" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud14" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(14)">提交答案</button><div class="answer-tip" id="judTip14"></div></div>
-        <div class="question-card"><div class="q-title">15. 一般来说，继电保护装置首先应满足快速性的要求。</div><div class="opt-item"><input type="radio" name="jud15" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud15" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(15)">提交答案</button><div class="answer-tip" id="judTip15"></div></div>
-        <div class="question-card"><div class="q-title">16. 三极管组成的放大电路，其直流负载线和交流负载线相交于静态工作点。</div><div class="opt-item"><input type="radio" name="jud16" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud16" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(16)">提交答案</button><div class="answer-tip" id="judTip16"></div></div>
-        <div class="question-card"><div class="q-title">17. 相—地制通道，即在输电线同一相作为高频通道。</div><div class="opt-item"><input type="radio" name="jud17" value="√"><label>正确</label></div><div class="opt-item"><input type="radio" name="jud17" value="×"><label>错误</label></div><button class="submit-btn" onclick="checkJudge(17)">提交答案</button><div class="answer-tip" id="judTip17"></div></div>
+        <div class="question-card"><div class="q-title">1. 通常所说的负载大小是指负载电流的大小。</div><label class="opt-item"><input type="radio" name="jud1" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud1" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(1)">提交答案</button><div class="answer-tip" id="judTip1"></div></div>
+        <div class="question-card"><div class="q-title">2. 一个线圈中，通以恒定电流时不产生自感电动势。</div><label class="opt-item"><input type="radio" name="jud2" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud2" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(2)">提交答案</button><div class="answer-tip" id="judTip2"></div></div>
+        <div class="question-card"><div class="q-title">3. 零序电流的分布与电源点的分布有关，与中性点接地的多少及位置无关。</div><label class="opt-item"><input type="radio" name="jud3" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud3" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(3)">提交答案</button><div class="answer-tip" id="judTip3"></div></div>
+        <div class="question-card"><div class="q-title">4. 220kV线路保护宜采用远后备方式，110kV线路保护宜采用近后备方式。</div><label class="opt-item"><input type="radio" name="jud4" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud4" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(4)">提交答案</button><div class="answer-tip" id="judTip4"></div></div>
+        <div class="question-card"><div class="q-title">5. 电流速断保护的保护范围，在各种运行方式下不会改变。</div><label class="opt-item"><input type="radio" name="jud5" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud5" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(5)">提交答案</button><div class="answer-tip" id="judTip5"></div></div>
+        <div class="question-card"><div class="q-title">6. 预告信号包括警铃和控制屏上的光字牌。</div><label class="opt-item"><input type="radio" name="jud6" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud6" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(6)">提交答案</button><div class="answer-tip" id="judTip6"></div></div>
+        <div class="question-card"><div class="q-title">7. 电力变压器不管其接线方式如何，其正、负、零序阻抗均相等。</div><label class="opt-item"><input type="radio" name="jud7" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud7" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(7)">提交答案</button><div class="answer-tip" id="judTip7"></div></div>
+        <div class="question-card"><div class="q-title">8. 微机保护动作后，若无打印报告则不论动作多少次只作1次统计。</div><label class="opt-item"><input type="radio" name="jud8" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud8" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(8)">提交答案</button><div class="answer-tip" id="judTip8"></div></div>
+        <div class="question-card"><div class="q-title">9. 为防御变压器过励磁应装设负序过电流保护。</div><label class="opt-item"><input type="radio" name="jud9" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud9" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(9)">提交答案</button><div class="answer-tip" id="judTip9"></div></div>
+        <div class="question-card"><div class="q-title">10. 变压器内部故障系指变压器线圈内发生故障。</div><label class="opt-item"><input type="radio" name="jud10" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud10" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(10)">提交答案</button><div class="answer-tip" id="judTip10"></div></div>
+        <div class="question-card"><div class="q-title">11. 保护的装置动作时间是指从保护开始动作到断路器跳开所经历的全部时间。</div><label class="opt-item"><input type="radio" name="jud11" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud11" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(11)">提交答案</button><div class="answer-tip" id="judTip11"></div></div>
+        <div class="question-card"><div class="q-title">12. 变压器差动保护不能代替瓦斯保护。</div><label class="opt-item"><input type="radio" name="jud12" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud12" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(12)">提交答案</button><div class="answer-tip" id="judTip12"></div></div>
+        <div class="question-card"><div class="q-title">13. 交直流回路可共用一条电缆，因为交直流回路都是独立系统。</div><label class="opt-item"><input type="radio" name="jud13" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud13" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(13)">提交答案</button><div class="answer-tip" id="judTip13"></div></div>
+        <div class="question-card"><div class="q-title">14. 发电机启动和停机保护，在正常工频运行时应退出。</div><label class="opt-item"><input type="radio" name="jud14" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud14" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(14)">提交答案</button><div class="answer-tip" id="judTip14"></div></div>
+        <div class="question-card"><div class="q-title">15. 一般来说，继电保护装置首先应满足快速性的要求。</div><label class="opt-item"><input type="radio" name="jud15" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud15" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(15)">提交答案</button><div class="answer-tip" id="judTip15"></div></div>
+        <div class="question-card"><div class="q-title">16. 三极管组成的放大电路，其直流负载线和交流负载线相交于静态工作点。</div><label class="opt-item"><input type="radio" name="jud16" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud16" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(16)">提交答案</button><div class="answer-tip" id="judTip16"></div></div>
+        <div class="question-card"><div class="q-title">17. 相—地制通道，即在输电线同一相作为高频通道。</div><label class="opt-item"><input type="radio" name="jud17" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud17" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(17)">提交答案</button><div class="answer-tip" id="judTip17"></div></div>
     </div>
 
     <!-- ============================================================ -->
@@ -726,7 +804,6 @@
         <h2 class="section-title">简答题速记 <span class="text-muted">（核心概念 · 清晰要点）</span></h2>
         <div style="background:#fff; border-radius:14px; padding:18px 18px 10px; box-shadow:0 2px 12px rgba(0,0,0,0.06); margin-bottom:12px;">
             <p style="text-align:center; color:#5a6f8c; margin-bottom:16px;">📘 复习专用 · 抓住关键词 · 理解为主</p>
-
             <div class="qa-card"><div class="q"><span class="num">1.</span> 继电保护装置的定义、功能及对变电站安全处理？</div><div class="a"><strong>定义</strong>：能反应电力系统故障或异常状态，并作用于断路器跳闸或发出信号的自动装置。<br><strong>功能</strong>：故障时快速切除故障设备，异常时发出信号。<br><strong>安全处理</strong>：保障电网稳定，防止设备损坏，缩小事故范围。</div></div>
             <div class="qa-card"><div class="q"><span class="num">2.</span> 故障、事故、不正常运行状态各层定义与联系？</div><div class="a"><strong>故障</strong>：设备短路等，电流剧增、电压降低。<br><strong>事故</strong>：故障导致系统运行遭到破坏。<br><strong>不正常运行</strong>：过负荷、过电压、频率偏差等，尚未发展为故障。<br><span class="highlight">联系</span>：不正常状态可能发展为故障，故障严重可能导致事故。</div></div>
             <div class="qa-card"><div class="q"><span class="num">3.</span> 最大运行方式、最小运行方式定义？</div><div class="a"><strong>最大运行方式</strong>：系统等值阻抗 <strong>最小</strong>，短路电流 <strong>最大</strong>（对应最多发电机、线路投入）。<br><strong>最小运行方式</strong>：系统等值阻抗 <strong>最大</strong>，短路电流 <strong>最小</strong>（对应最少投入）。</div></div>
@@ -742,7 +819,6 @@
             <div class="qa-card"><div class="q"><span class="num">13.</span> 零序电流的整定原则？</div><div class="a">① 躲过本线路末端接地故障时的 <strong>最大零序电流</strong>；<br>② 与相邻线路零序保护 <strong>配合</strong>（分段式整定，保证选择性）；<br>③ 考虑系统运行方式变化的影响。</div></div>
             <div class="qa-card"><div class="q"><span class="num">14.</span> 方向圆阻抗继电器动作特性</div><div class="a"><p style="margin-bottom:8px;">距离保护是反映故障点至保护安装地点之间的距离（或阻抗），而距离继电器是根据距离的远近而确定动作时间的一种保护装置。</p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWUv1qQl2x5UbxhYVJJjvH_x7Y1UoVtwACNiUAAv6GGFYT63L6Y9HM9TwE.jpg" alt="方向圆阻抗特性" style="max-width:100%; border-radius:8px; margin:6px 0;"></div></div>
             <div class="qa-card"><div class="q"><span class="num">15.</span> 对相分量法？</div><div class="a">直接利用 <strong>A、B、C 三相</strong> 电压、电流的相量进行保护计算，<strong>不转换为对称分量</strong>（零、正、负序）。常用于故障选相、某些距离保护算法。</div></div>
-
             <div class="qa-footer">📘 复习专用 · 抓住关键词 · 理解为主</div>
         </div>
     </div>
@@ -753,24 +829,13 @@
     <div class="tab-content active" id="tab-review">
         <div class="study-section">
             <h2 style="font-size:22px; font-weight:700; color:#0b1e33; margin-bottom:16px;">📖 核心考点复习</h2>
-
-            <!-- 模块一 -->
             <div class="module-title">模块一 电力变压器继电保护</div>
-
             <h4 class="sub-title">一、变压器故障与异常运行状态</h4>
             <p><strong>1. 油箱内部故障：</strong></p>
-            <ol>
-                <li>各相绕组之间的相间短路</li>
-                <li>单相绕组线匝之间的匝间短路</li>
-                <li>绕组或引出线碰外壳单相接地故障</li>
-            </ol>
+            <ol><li>各相绕组之间的相间短路</li><li>单相绕组线匝之间的匝间短路</li><li>绕组或引出线碰外壳单相接地故障</li></ol>
             <p><strong>2. 油箱外部故障：</strong></p>
-            <ol>
-                <li>引出线相间短路</li>
-                <li>绝缘套管破损、闪络引发引出线单相接地短路</li>
-            </ol>
+            <ol><li>引出线相间短路</li><li>绝缘套管破损、闪络引发引出线单相接地短路</li></ol>
             <p><strong>3. 异常运行工况：</strong> 过负荷、过电流、零序过流、油面下降、铁芯过励磁、冷却系统故障、设备温升超标。</p>
-
             <h4 class="sub-title">二、变压器七类保护配置及作用</h4>
             <ol>
                 <li><strong>瓦斯保护（油浸式变压器专属内部保护）</strong><p>防护范围：油箱内部全部短路故障、油面降低故障。<br>动作逻辑：轻瓦斯动作发告警信号；重瓦斯动作直接跳闸切除变压器。</p></li>
@@ -781,43 +846,24 @@
                 <li><strong>过励磁保护</strong><p>功能：防范系统电压偏高、频率偏低造成铁芯过励磁，避免铁芯过热绝缘老化。</p></li>
                 <li><strong>其他辅助保护</strong><p>功能：温度保护、冷却系统故障保护，监测设备散热、温升异常。</p></li>
             </ol>
-
             <h4 class="sub-title">三、变压器保护分工总结</h4>
             <ol>
                 <li><strong>双重主保护：</strong>瓦斯保护 + 纵差动保护，互补覆盖全部油箱内部故障，实现故障瞬时切除；</li>
                 <li><strong>后备保护：</strong>应对外部短路、主保护拒动故障，作为兜底保护；</li>
                 <li><strong>告警类保护：</strong>提前预警过载、漏油、过热、过励磁等非短路异常工况。</li>
             </ol>
-
             <hr class="divider-light">
-
-            <!-- 模块二 -->
             <div class="module-title">模块二 距离保护基础 <span class="text-muted">（配套三张原理图）</span></div>
-
             <h4 class="sub-title">1. 阻抗继电器基础定义与测量阻抗公式</h4>
             <p>阻抗继电器是距离保护装置的核心元件。其主要作用是测量短路点到保护安装地点之间的阻抗，并与整定阻抗值进行比较，以确定保护是否应该动作。</p>
-            <div class="img-card">
-                <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWSttqQfhkUfYx1M9myrbbpCUpe9Z97wAC3CQAAv6GEFYkr0HP2RcyhTwE.png" alt="阻抗继电器核心作用与测量阻抗公式">
-                <div class="img-desc">图1：阻抗继电器核心作用与测量阻抗公式</div>
-            </div>
-
+            <div class="img-card"><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWSttqQfhkUfYx1M9myrbbpCUpe9Z97wAC3CQAAv6GEFYkr0HP2RcyhTwE.png" alt="阻抗继电器核心作用与测量阻抗公式"><div class="img-desc">图1：阻抗继电器核心作用与测量阻抗公式</div></div>
             <h4 class="sub-title">2. 正常负荷阻抗与故障短路阻抗、保护动作判据</h4>
             <p>正常运行时测量阻抗为负荷阻抗（数值大、角度小）；故障时测量阻抗骤降（数值小、角度接近线路阻抗角）。距离保护据此区分正常运行与短路故障。</p>
-            <div class="img-card">
-                <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWStxqQfiGoAFfQYoTBNKb_P3x_vC30gAC3SQAAv6GEFaIzK_jijsdUTwE.png" alt="负荷阻抗与短路阻抗对比图">
-                <div class="img-desc">图2：正常运行 / 故障下测量阻抗区分与距离保护动作逻辑</div>
-            </div>
-
+            <div class="img-card"><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWStxqQfiGoAFfQYoTBNKb_P3x_vC30gAC3SQAAv6GEFaIzK_jijsdUTwE.png" alt="负荷阻抗与短路阻抗对比图"><div class="img-desc">图2：正常运行 / 故障下测量阻抗区分与距离保护动作逻辑</div></div>
             <h4 class="sub-title">3. 方向圆阻抗继电器动作特性（R-X 阻抗平面图形）</h4>
             <p>方向圆阻抗继电器在 R-X 复平面上具有方向性动作圆，仅当测量阻抗落在圆内且位于正方向时动作，反向故障不会误动，具备天然的方向选择性。</p>
-            <div class="img-card">
-                <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWSt5qQfilF5N3P45MqP7oE8YBxybKLAAC3yQAAv6GEFalBzDHmrfYUjwE.png" alt="方向圆阻抗特性示意图">
-                <div class="img-desc">图3：方向圆阻抗继电器复平面动作特性图</div>
-            </div>
-
+            <div class="img-card"><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWSt5qQfilF5N3P45MqP7oE8YBxybKLAAC3yQAAv6GEFalBzDHmrfYUjwE.png" alt="方向圆阻抗特性示意图"><div class="img-desc">图3：方向圆阻抗继电器复平面动作特性图</div></div>
             <hr class="divider-light">
-
-            <!-- 高频简答 -->
             <div class="module-title">📌 距离保护 · 高频简答背诵</div>
             <ol class="qa-list">
                 <li><strong>瓦斯保护优缺点</strong><p>优点：可反应轻微匝间短路、油箱漏油；差动无法检测轻微匝间故障。<br>缺点：仅油浸变可用，不能保护外部套管、引线故障。</p></li>
@@ -835,13 +881,21 @@
     <div class="maker-stamp">✨ 本网页由沐春风制作 · 祝您复习顺利 ✨</div>
 
     <!-- ============================================================ -->
+    <!-- 倒计时提示条（固定在底部） -->
+    <!-- ============================================================ -->
+    <div class="countdown-bar" id="countdownBar">
+        <span class="countdown-text" id="countdownText">⏳ 3 秒后自动跳转...</span>
+        <button class="countdown-btn" id="countdownJumpBtn">立即跳转</button>
+        <button class="countdown-btn cancel-btn" id="countdownCancelBtn">取消</button>
+    </div>
+
+    <!-- ============================================================ -->
     <!-- JavaScript -->
     <!-- ============================================================ -->
     <script>
         // ================================================================
-        // 导航切换
+        // 导航切换 & 工具函数
         // ================================================================
-        const tabs = document.querySelectorAll('.tab-btn');
         const contents = {
             fill: document.getElementById('tab-fill'),
             choice: document.getElementById('tab-choice'),
@@ -850,16 +904,96 @@
             review: document.getElementById('tab-review')
         };
 
-        tabs.forEach(btn => {
+        let countdownTimer = null; // 倒计时定时器句柄
+        let countdownSeconds = 0; // 当前剩余秒数
+
+        function switchTab(tabName) {
+            // 清除可能正在运行的倒计时
+            clearCountdown();
+            // 更新按钮状态
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tab === tabName);
+            });
+            // 更新内容显示
+            Object.keys(contents).forEach(key => {
+                contents[key].classList.toggle('active', key === tabName);
+            });
+            // 平滑滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 手动点击导航切换
+        document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                tabs.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                const target = this.dataset.tab;
-                Object.keys(contents).forEach(key => {
-                    contents[key].classList.toggle('active', key === target);
-                });
+                switchTab(this.dataset.tab);
             });
         });
+
+        // ================================================================
+        // 倒计时控制函数
+        // ================================================================
+        const countdownBar = document.getElementById('countdownBar');
+        const countdownText = document.getElementById('countdownText');
+        const jumpBtn = document.getElementById('countdownJumpBtn');
+        const cancelBtn = document.getElementById('countdownCancelBtn');
+
+        /** 清除倒计时并隐藏提示条 */
+        function clearCountdown() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
+            countdownBar.style.display = 'none';
+        }
+
+        /** 启动倒计时
+         * @param {number} seconds - 倒计时秒数（默认3秒）
+         * @param {string} targetTab - 目标标签名 ('choice' | 'judge' | 'review')
+         * @param {string} message - 提示文字（如 "填空题已完成，即将跳转到选择题..."）
+         * @param {string} scrollSelector - 跳转后滚动定位选择器
+         */
+        function startCountdown(seconds, targetTab, message, scrollSelector) {
+            // 清除之前的倒计时
+            clearCountdown();
+
+            countdownSeconds = seconds || 3;
+            countdownText.textContent = message + ' ⏳ ' + countdownSeconds + ' 秒';
+            countdownBar.style.display = 'flex';
+
+            // 立即跳转按钮
+            jumpBtn.onclick = function() {
+                clearCountdown();
+                doJump(targetTab, scrollSelector);
+            };
+
+            // 取消按钮（取消倒计时，留在当前页面）
+            cancelBtn.onclick = function() {
+                clearCountdown();
+            };
+
+            // 启动倒计时
+            countdownTimer = setInterval(function() {
+                countdownSeconds--;
+                if (countdownSeconds <= 0) {
+                    clearCountdown();
+                    doJump(targetTab, scrollSelector);
+                } else {
+                    // 更新显示的文字，替换掉原有的秒数
+                    // 简单处理：直接重新拼接
+                    const baseMsg = message.replace(/\s*\d+\s*秒$/, '');
+                    countdownText.textContent = baseMsg + ' ⏳ ' + countdownSeconds + ' 秒';
+                }
+            }, 1000);
+        }
+
+        /** 执行实际跳转 */
+        function doJump(targetTab, scrollSelector) {
+            switchTab(targetTab);
+            if (scrollSelector) {
+                const el = document.querySelector(scrollSelector);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
 
         // ================================================================
         // 完整答案库
@@ -877,7 +1011,6 @@
                 9: { ans: "波形（或谐波畸变率）", desc: "✅ 波形（或谐波畸变率）" },
                 10: { ans: "铁芯", desc: "✅ 铁芯" },
                 11: { ans: "预告", desc: "✅ 预告" },
-                // 第12题修正：支持"分开"或"一点接地"等关键词
                 12: { ans: "分开", desc: "✅ 根据规程，二次和三次回路必须分开，且整个系统只能有一点且必须有一点可靠接地" },
                 13: { ans: "发出信号", desc: "✅ 发出信号" },
                 14: { ans: "事故", desc: "✅ 事故" },
@@ -929,7 +1062,7 @@
         };
 
         // ================================================================
-        // 校验函数
+        // 校验函数 + 倒计时跳转
         // ================================================================
         function checkFill(num) {
             const input = document.getElementById('fill' + num).value.trim();
@@ -944,10 +1077,18 @@
                 return;
             }
             tip.style.display = 'block';
-            // 更灵活的匹配：精确匹配或包含关系
             const isCorrect = input === info.ans || info.ans.includes(input) || input.includes(info.ans);
             tip.className = isCorrect ? 'answer-tip right' : 'answer-tip error';
             tip.innerText = isCorrect ? '🎉 回答正确！' + info.desc : '❌ 回答错误。' + info.desc;
+
+            // ---- 跳转逻辑 ----
+            if (num < 17) {
+                const next = document.getElementById('fill' + (num + 1));
+                if (next) next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                // 填空题全部完成 → 3秒后跳转到选择题
+                startCountdown(3, 'choice', '📝 填空题已完成，3 秒后自动跳转到「选择题」...', '#tab-choice .section-title');
+            }
         }
 
         function checkRadio(num) {
@@ -967,6 +1108,19 @@
             }
             tip.className = (selected === info.ans) ? 'answer-tip right' : 'answer-tip error';
             tip.innerText = (selected === info.ans) ? '🎉 回答正确！' + info.desc : '❌ 回答错误。' + info.desc;
+
+            // ---- 跳转逻辑 ----
+            const total = 20;
+            if (num < total) {
+                const nextRadios = document.getElementsByName('rad' + (num + 1));
+                if (nextRadios.length > 0) {
+                    const card = nextRadios[0].closest('.question-card');
+                    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else {
+                // 选择题全部完成 → 3秒后跳转到判断题
+                startCountdown(3, 'judge', '🔘 选择题已完成，3 秒后自动跳转到「判断题」...', '#tab-judge .section-title');
+            }
         }
 
         function checkJudge(num) {
@@ -986,6 +1140,19 @@
             }
             tip.className = (selected === info.ans) ? 'answer-tip right' : 'answer-tip error';
             tip.innerText = (selected === info.ans) ? '🎉 回答正确！' + info.desc : '❌ 回答错误。' + info.desc;
+
+            // ---- 跳转逻辑 ----
+            const total = 17;
+            if (num < total) {
+                const nextRadios = document.getElementsByName('jud' + (num + 1));
+                if (nextRadios.length > 0) {
+                    const card = nextRadios[0].closest('.question-card');
+                    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else {
+                // 判断题全部完成 → 3秒后跳转到复习资料
+                startCountdown(3, 'review', '⚖️ 判断题已完成，3 秒后自动跳转到「复习资料」...', '#tab-review .section-title');
+            }
         }
 
         // ================================================================
@@ -999,7 +1166,6 @@
                     '判断题' : tabName === 'qa' ? '简答题' : '复习资料'),
                 '═══════════════════════════════════════════════════════', ''
             ];
-
             if (tabName === 'fill') {
                 lines.push('【填空题答案】');
                 for (let i = 1; i <= 17; i++) {
@@ -1053,7 +1219,6 @@
                 lines.push('  - 优势：保护范围不受运行方式影响');
                 lines.push('• 高频简答：瓦斯保护、双重主保护、距离保护优势、方向圆方向性、过负荷保护');
             }
-
             lines.push('', '═══════════════════════════════════════════════════════');
             const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
             const a = document.createElement('a');
@@ -1079,7 +1244,7 @@
             });
         });
 
-        document.querySelectorAll('.question-card .opt-item input[type="radio"]').forEach((radio) => {
+        document.querySelectorAll('.opt-item input[type="radio"]').forEach((radio) => {
             radio.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
