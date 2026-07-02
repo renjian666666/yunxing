@@ -1,1286 +1,1383 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
-    <title>继电保护 · 复习与刷题</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>牵引变电所运行岗位培训考试</title>
     <style>
-        /* ===== 全局 ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #f0f4f9;
-            padding: 12px 12px 40px;
-            max-width: 1100px;
-            margin: 0 auto;
+            font-family: 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+            background: #f0f4f8;
+            color: #1a2332;
+            padding: 12px;
             min-height: 100vh;
         }
-        .maker-stamp {
-            text-align: center;
-            color: #6b7a8f;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-            padding: 8px 0;
-            border-top: 1px solid #e2e8f0;
-            margin-top: 28px;
-            font-weight: 400;
+        .app-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            overflow: hidden;
+            padding: 20px 18px 28px;
         }
-        .maker-stamp-top {
-            border-top: none;
-            border-bottom: 1px solid #e2e8f0;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-
-        /* ===== 头部 ===== */
-        .header-box {
-            background: linear-gradient(135deg, #1a4cff, #2563eb);
-            color: #fff;
-            padding: 16px 20px;
-            border-radius: 14px;
+        .app-header {
+            border-bottom: 2px solid #e8edf3;
+            padding-bottom: 14px;
+            margin-bottom: 18px;
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.30);
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .header-box h1 {
-            font-size: 19px;
+        .app-header h1 {
+            font-size: 20px;
             font-weight: 700;
-            letter-spacing: 0.3px;
-            line-height: 1.3;
+            background: linear-gradient(135deg, #1a3a5c, #2a5f8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .download-btn {
-            padding: 8px 16px;
-            background: #fff;
-            color: #2563eb;
-            border: none;
-            border-radius: 8px;
+        .header-info {
             font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            white-space: nowrap;
+            color: #6b7a8f;
+            background: #f0f4fa;
+            padding: 4px 14px;
+            border-radius: 30px;
         }
-        .download-btn:hover {
-            background: #e8f0fe;
-            transform: translateY(-1px);
-        }
-
-        /* ===== 导航栏 ===== */
         .nav-tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 4px;
-            margin-bottom: 20px;
-            background: #fff;
-            border-radius: 12px;
-            padding: 6px 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            gap: 6px;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #e8edf3;
+            padding-bottom: 8px;
         }
-        .nav-tabs .tab-btn {
-            padding: 8px 14px;
-            border: none;
-            border-radius: 8px;
+        .nav-tab {
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
             background: transparent;
-            font-size: 14px;
-            font-weight: 600;
-            color: #3a5a7a;
-            cursor: pointer;
-            transition: 0.2s;
-            flex: 0 1 auto;
-        }
-        .nav-tabs .tab-btn:hover {
-            background: #e8edf4;
-        }
-        .nav-tabs .tab-btn.active {
-            background: #2563eb;
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
-        }
-        @media (max-width: 500px) {
-            .nav-tabs .tab-btn {
-                font-size: 12px;
-                padding: 5px 10px;
-                flex: 1 1 auto;
-                text-align: center;
-            }
-        }
-
-        /* ===== 内容区 ===== */
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.25s ease;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0.4; transform: translateY(6px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== 通用标题 ===== */
-        .section-title {
-            font-size: 21px;
-            font-weight: 700;
-            color: #0b1e33;
-            margin: 10px 0 16px;
-            padding-left: 12px;
-            border-left: 6px solid #2563eb;
-            line-height: 1.3;
-        }
-        .module-title {
-            font-size: 19px;
-            font-weight: 700;
-            color: #0b1e33;
-            margin: 26px 0 14px;
-            padding-bottom: 6px;
-            border-bottom: 2px solid #dce3ef;
-        }
-        .sub-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1e3a6b;
-            margin: 20px 0 8px;
-        }
-        .text-muted {
-            color: #5a6f8c;
-            font-size: 14px;
-        }
-        .divider-light {
-            border: 0;
-            height: 1px;
-            background: linear-gradient(to right, transparent, #d0d8e6, transparent);
-            margin: 20px 0;
-        }
-
-        /* ===== 复习资料样式 ===== */
-        .study-section {
-            background: #fff;
-            border-radius: 14px;
-            padding: 20px 18px 16px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-            margin-bottom: 20px;
-        }
-        .study-section p,
-        .study-section li {
-            line-height: 1.8;
-            color: #1e293b;
-            font-size: 15px;
-        }
-        .study-section ol {
-            padding-left: 20px;
-            margin: 6px 0 10px;
-        }
-        .study-section ol li {
-            margin-bottom: 4px;
-        }
-        .study-section ul {
-            padding-left: 20px;
-            margin: 4px 0 8px;
-        }
-        .study-section ul li {
-            list-style-type: disc;
-            margin-bottom: 2px;
-        }
-
-        .img-card {
-            background: #fafcff;
-            border-radius: 12px;
-            padding: 14px 14px 12px;
-            margin: 16px 0 24px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-            border: 1px solid #e9edf4;
-            transition: 0.2s;
-        }
-        .img-card:hover {
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-        }
-        .img-card img {
-            display: block;
-            width: 100%;
-            max-width: 780px;
-            height: auto;
-            margin: 0 auto;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-            background: #fff;
-        }
-        .img-desc {
-            text-align: center;
-            font-size: 14px;
-            color: #2c3e5c;
-            margin-top: 10px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
-        .img-desc small {
-            font-weight: 400;
-            color: #5a6f8c;
-        }
-
-        .qa-list {
-            background: #f8faff;
-            border-radius: 10px;
-            padding: 14px 18px 10px;
-            margin: 12px 0 4px;
-        }
-        .qa-list li {
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #e2e8f0;
-            list-style-type: decimal;
-        }
-        .qa-list li:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        .qa-list strong {
-            color: #1a4cff;
-        }
-        .qa-list p {
-            margin-top: 3px;
-            font-size: 14px;
-            color: #2d3f5e;
-        }
-
-        /* ===== 题库卡片 ===== */
-        .question-card {
-            background: #fff;
-            padding: 16px 16px 14px;
-            border-radius: 10px;
-            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid #eef2f7;
-            margin-bottom: 14px;
-            transition: 0.15s;
-        }
-        .question-card:hover {
-            border-color: #cbd5e1;
-        }
-        .q-title {
-            font-size: 15px;
-            font-weight: 500;
-            color: #0b1e33;
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .opt-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            margin: 4px 0;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.15s;
-            background: transparent;
-            border: 1px solid transparent;
-            font-size: 15px;
-            color: #1e293b;
-            user-select: none;
-        }
-        .opt-item:hover {
-            background: #f0f6ff;
-            border-color: #cbd5e1;
-        }
-        .opt-item input[type="radio"] {
-            flex-shrink: 0;
-            width: 18px;
-            height: 18px;
-            accent-color: #2563eb;
-            cursor: pointer;
-            margin: 0;
-        }
-        .opt-item .option-text {
-            flex: 1;
-            line-height: 1.4;
-        }
-        @media (max-width: 640px) {
-            .opt-item {
-                padding: 12px 14px;
-                gap: 12px;
-            }
-            .opt-item input[type="radio"] {
-                width: 22px;
-                height: 22px;
-            }
-        }
-
-        .input-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 10px;
-            margin-top: 6px;
-        }
-        .input-row input[type="text"] {
-            padding: 7px 14px;
-            border: 1.5px solid #d0d8e6;
-            border-radius: 6px;
-            font-size: 15px;
-            width: 200px;
-            max-width: 70%;
-            transition: 0.2s;
-            background: #fafcff;
-        }
-        .input-row input[type="text"]:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-        }
-        .submit-btn {
-            padding: 8px 20px;
-            background: #2563eb;
-            color: #fff;
             border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            flex-shrink: 0;
-            min-height: 40px;
-            min-width: 72px;
-        }
-        .submit-btn:hover {
-            background: #1a4cbf;
-            transform: translateY(-1px);
-        }
-        .submit-btn:active {
-            transform: scale(0.96);
-        }
-        .answer-tip {
-            margin-top: 10px;
-            padding: 10px 14px;
-            border-radius: 6px;
-            display: none;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .right {
-            background: #dcfce7;
-            color: #0b5e2e;
-            border: 1px solid #86efac;
-        }
-        .error {
-            background: #fee2e2;
-            color: #8b1a1a;
-            border: 1px solid #fca5a5;
-        }
-        .warning {
-            background: #fef9c3;
-            color: #7a6b1a;
-            border: 1px solid #fde047;
-        }
-
-        /* ===== 简答题卡片 ===== */
-        .qa-card {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            padding: 18px 22px 20px;
-            margin-bottom: 16px;
-            border-left: 5px solid #2563eb;
-            transition: 0.2s;
-        }
-        .qa-card:hover {
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-        }
-        .qa-card .q {
-            font-weight: 600;
-            font-size: 16px;
-            color: #0a2a44;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-        }
-        .qa-card .q .num {
-            display: inline-block;
-            min-width: 30px;
-            color: #2563eb;
-            font-weight: 700;
-        }
-        .qa-card .a {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #1f334a;
-            padding-left: 38px;
-        }
-        .qa-card .a strong {
-            color: #c44536;
-            font-weight: 600;
-        }
-        .qa-card .a .highlight {
-            background: #fff0d9;
-            padding: 1px 6px;
-            border-radius: 4px;
-            font-weight: 500;
-        }
-        .qa-card .a img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin: 6px 0;
-        }
-        .qa-footer {
-            text-align: center;
-            font-size: 14px;
-            color: #7a8fa0;
-            margin-top: 20px;
-            border-top: 1px solid #dae2ec;
-            padding-top: 18px;
-        }
-
-        /* ===== 倒计时提示条（新增） ===== */
-        .countdown-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #1e293b;
-            color: #fff;
-            padding: 14px 20px;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            z-index: 999;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
-            font-size: 16px;
-            flex-wrap: wrap;
-            text-align: center;
-        }
-        .countdown-bar .countdown-text {
-            font-weight: 500;
-        }
-        .countdown-bar .countdown-num {
-            display: inline-block;
-            min-width: 32px;
-            font-weight: 700;
-            color: #60a5fa;
-            font-size: 20px;
-        }
-        .countdown-bar .countdown-btn {
-            padding: 6px 18px;
-            border: none;
-            border-radius: 6px;
-            background: #2563eb;
-            color: #fff;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.2s;
+            color: #6b7a8f;
+            transition: all 0.25s;
             white-space: nowrap;
         }
-        .countdown-bar .countdown-btn:hover {
-            background: #1a4cbf;
+        .nav-tab:hover { background: #eef3f9; color: #1a3a5c; }
+        .nav-tab.active { background: #1a3a5c; color: #fff; box-shadow: 0 4px 12px rgba(26,58,92,0.25); }
+        .section { display: none; animation: fadeUp 0.3s ease; }
+        .section.active { display: block; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a3a5c;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
-        .countdown-bar .countdown-btn.cancel-btn {
-            background: #475569;
+        .section-title .count {
+            font-size: 12px;
+            font-weight: 400;
+            color: #6b7a8f;
+            background: #eef3f9;
+            padding: 2px 10px;
+            border-radius: 30px;
         }
-        .countdown-bar .countdown-btn.cancel-btn:hover {
-            background: #334155;
+        .section-desc {
+            font-size: 13px;
+            color: #6b7a8f;
+            margin-bottom: 14px;
+            padding: 8px 14px;
+            background: #f7faff;
+            border-radius: 10px;
+            border-left: 4px solid #2a5f8a;
         }
-        @media (max-width: 640px) {
-            .countdown-bar {
-                padding: 12px 16px;
-                font-size: 14px;
-                gap: 10px;
-            }
-            .countdown-bar .countdown-btn {
-                font-size: 13px;
-                padding: 5px 14px;
-            }
+        /* 增大题目卡片间距 */
+        .question-card {
+            background: #fafcff;
+            border: 1px solid #e8edf3;
+            border-radius: 12px;
+            padding: 18px 20px;         /* 增大内边距 */
+            margin-bottom: 20px;        /* 增大卡片底部间距 */
+            transition: border-color 0.2s, opacity 0.3s;
+            scroll-margin-top: 20px;
+        }
+        .question-card.locked {
+            opacity: 0.85;
+            border-color: #b0c4de;
+        }
+        .question-card .q-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;          /* 适当增加标题与内容间距 */
+        }
+        .question-card .q-label {
+            font-weight: 700;
+            color: #1a3a5c;
+            font-size: 14px;
+            min-width: 40px;
+        }
+        .question-card .q-text {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #1e2a3a;
+            flex: 1;
+        }
+        .question-card .q-text .blank-input {
+            display: inline-block;
+            width: 120px;
+            max-width: 100%;
+            padding: 3px 8px;
+            border: 2px dashed #b0c4de;
+            border-radius: 6px;
+            font-size: 13px;
+            background: #fff;
+            transition: border-color 0.25s, background 0.2s;
+            margin: 0 2px;
+            vertical-align: middle;
+        }
+        .question-card .q-text .blank-input:focus {
+            border-color: #2a5f8a;
+            outline: none;
+            background: #f7fbff;
+        }
+        .question-card .q-text .blank-input.correct {
+            border-color: #27ae60;
+            border-style: solid;
+            background: #eafaf1;
+        }
+        .question-card .q-text .blank-input.wrong {
+            border-color: #e74c5e;
+            border-style: solid;
+            background: #fdedec;
+        }
+        .question-card .q-text .blank-input:disabled {
+            background: #f0f4f8;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .feedback {
+            margin-top: 10px;            /* 反馈与选项间距 */
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 6px;
+        }
+        .feedback.show { display: flex; }
+        .feedback.correct { background: #eafaf1; color: #1a7a3a; border-left: 4px solid #27ae60; }
+        .feedback.wrong { background: #fdedec; color: #b03a3a; border-left: 4px solid #e74c5e; }
+        .feedback .fb-icon { font-size: 18px; }
+
+        .options-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;              /* 选项间距 */
+            margin-top: 10px;            /* 与标题间距 */
+        }
+        .option-btn {
+            padding: 6px 18px;           /* 增大按钮内边距 */
+            border-radius: 30px;
+            border: 2px solid #dce3ed;
+            background: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #1e2a3a;
+            font-weight: 500;
+        }
+        .option-btn:hover:not(:disabled) { border-color: #8aa3c9; background: #f5f9ff; }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .option-btn.selected {
+            border-color: #1a3a5c;
+            background: #1a3a5c;
+            color: #fff;
+        }
+        .option-btn.correct-answer {
+            border-color: #27ae60;
+            background: #27ae60;
+            color: #fff;
+        }
+        .option-btn.wrong-answer {
+            border-color: #e74c5e;
+            background: #e74c5e;
+            color: #fff;
+        }
+        .option-btn .opt-label { font-weight: 700; margin-right: 4px; }
+
+        .judge-group {
+            display: flex;
+            gap: 12px;                  /* 按钮间距 */
+            margin-top: 10px;
+        }
+        .judge-btn {
+            padding: 6px 24px;           /* 增大内边距 */
+            border-radius: 30px;
+            border: 2px solid #dce3ed;
+            background: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .judge-btn:hover:not(:disabled) { border-color: #8aa3c9; background: #f5f9ff; }
+        .judge-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .judge-btn.selected-true { border-color: #27ae60; background: #27ae60; color: #fff; }
+        .judge-btn.selected-false { border-color: #e74c5e; background: #e74c5e; color: #fff; }
+        .judge-btn.correct-answer { border-color: #27ae60; background: #27ae60; color: #fff; }
+        .judge-btn.wrong-answer { border-color: #e74c5e; background: #e74c5e; color: #fff; }
+
+        /* 简答题卡片间距也增大 */
+        .short-card {
+            background: #fafcff;
+            border: 1px solid #e8edf3;
+            border-radius: 12px;
+            margin-bottom: 20px;          /* 卡片间距 */
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .short-card .short-header {
+            padding: 16px 18px;           /* 增大内边距 */
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f7faff;
+            transition: background 0.2s;
+            user-select: none;
+        }
+        .short-card .short-header:hover {
+            background: #eef3f9;
+        }
+        .short-card .short-header .q-label {
+            font-weight: 700;
+            color: #1a3a5c;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+        .short-card .short-header .q-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1e2a3a;
+            flex: 1;
+        }
+        .short-card .short-header .toggle-icon {
+            font-size: 18px;
+            color: #6b7a8f;
+            transition: transform 0.3s;
+        }
+        .short-card .short-header .toggle-icon.open {
+            transform: rotate(180deg);
+        }
+        .short-card .short-body {
+            padding: 0 18px 18px;         /* 底部内边距 */
+            display: none;
+            border-top: 1px solid #e8edf3;
+            margin-top: 0;
+            background: #ffffff;
+        }
+        .short-card .short-body.open {
+            display: block;
+        }
+        .short-card .short-body .answer-content {
+            font-size: 14px;
+            line-height: 1.9;
+            color: #1e2a3a;
+            padding-top: 14px;
+        }
+        .short-card .short-body .answer-content strong {
+            color: #1a3a5c;
+        }
+        .short-card .short-body .answer-content .koujue {
+            background: #eaf4e8;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border-left: 4px solid #27ae60;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+        .short-card .short-body .answer-content ul, 
+        .short-card .short-body .answer-content ol {
+            padding-left: 20px;
+            margin: 6px 0;
         }
 
-        /* ===== 响应式 ===== */
-        @media (max-width: 640px) {
-            body {
-                padding: 10px 8px 30px;
-            }
-            .header-box {
-                padding: 12px 14px;
-                flex-direction: column;
-                text-align: center;
-                border-radius: 12px;
-            }
-            .header-box h1 {
-                font-size: 17px;
-            }
-            .download-btn {
-                font-size: 13px;
-                padding: 8px 16px;
-                width: 100%;
-                max-width: 220px;
-            }
-            .nav-tabs {
-                padding: 6px 8px;
-                gap: 4px;
-            }
-            .nav-tabs .tab-btn {
-                font-size: 12px;
-                padding: 5px 8px;
-            }
-            .question-card {
-                padding: 14px 14px 12px;
-                border-radius: 8px;
-            }
-            .qa-card {
-                padding: 14px 16px;
-                border-left-width: 4px;
-            }
-            .qa-card .a {
-                padding-left: 0;
-            }
-            .qa-card .q {
-                font-size: 15px;
-            }
-            .section-title {
-                font-size: 19px;
-                padding-left: 10px;
-                margin: 16px 0 12px;
-            }
-            .module-title {
-                font-size: 17px;
-                margin: 20px 0 10px;
-            }
-            .sub-title {
-                font-size: 15px;
-                margin: 14px 0 6px;
-            }
-            .q-title {
-                font-size: 14px;
-            }
-            .opt-item {
-                font-size: 14px;
-                padding: 12px 14px;
-                gap: 12px;
-            }
-            .opt-item input[type="radio"] {
-                width: 22px;
-                height: 22px;
-            }
-            .submit-btn {
-                padding: 8px 16px;
-                font-size: 13px;
-                min-height: 38px;
-                min-width: 60px;
-                flex: 1 1 auto;
-            }
-            .input-row {
-                gap: 8px;
-            }
-            .input-row input[type="text"] {
-                width: 100%;
-                max-width: 100%;
-                font-size: 14px;
-                padding: 8px 12px;
-            }
-            .answer-tip {
-                font-size: 13px;
-                padding: 8px 12px;
-            }
-            .maker-stamp {
-                font-size: 12px;
-                padding: 6px 0;
-            }
-            .study-section {
-                padding: 16px 14px 14px;
-            }
-            .study-section p,
-            .study-section li {
-                font-size: 14px;
-            }
-            .img-card {
-                padding: 10px;
-            }
-            .img-desc {
-                font-size: 13px;
-            }
-            .qa-footer {
-                font-size: 13px;
-                margin-top: 16px;
-                padding-top: 14px;
-            }
-            .qa-list {
-                padding: 12px 14px 8px;
-            }
-            .qa-list li {
-                font-size: 14px;
-            }
-            .qa-list p {
-                font-size: 13px;
-            }
+        .section-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 2px solid #e8edf3;
         }
-        @media (min-width: 641px) and (max-width: 1024px) {
-            body {
-                padding: 20px 18px 40px;
-            }
-            .header-box h1 {
-                font-size: 20px;
-            }
-            .question-card {
-                padding: 18px 22px 16px;
-            }
-            .qa-card {
-                padding: 18px 22px 20px;
-            }
-            .study-section {
-                padding: 24px 24px 18px;
-            }
+        .progress-info {
+            font-size: 13px;
+            color: #4a5a6f;
         }
-        @media (min-width: 1025px) {
-            .question-card {
-                padding: 20px 26px 18px;
-            }
-            .qa-card {
-                padding: 20px 26px 22px;
-            }
-            .study-section {
-                padding: 30px 34px 24px;
-            }
+        .progress-info strong { color: #1a3a5c; }
+        .btn-primary {
+            padding: 8px 28px;
+            border-radius: 40px;
+            border: none;
+            background: #1a3a5c;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 14px rgba(26,58,92,0.25);
         }
+        .btn-primary:hover:not(:disabled) { background: #2a5f8a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,58,92,0.3); }
+        .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn-secondary {
+            padding: 8px 22px;
+            border-radius: 40px;
+            border: 2px solid #dce3ed;
+            background: #fff;
+            color: #4a5a6f;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover { border-color: #8aa3c9; background: #f5f9ff; }
 
-        /* ===== 打印 ===== */
-        @media print {
-            .submit-btn,
-            .download-btn,
-            .nav-tabs,
-            .countdown-bar {
-                display: none !important;
-            }
-            .tab-content {
-                display: block !important;
-            }
-            .answer-tip {
-                display: block !important;
-                background: #f0f4f9 !important;
-                border: 1px solid #ccc !important;
-                color: #1e293b !important;
-            }
-            .question-card,
-            .qa-card,
-            .img-card,
-            .study-section {
-                break-inside: avoid;
-                box-shadow: none !important;
-                border: 1px solid #ddd !important;
-                background: #fff !important;
-            }
-            body {
-                background: #fff;
-                padding: 16px;
-            }
-            .header-box {
-                background: #1a4cff !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .maker-stamp {
-                border-top-color: #ccc !important;
-            }
-            .maker-stamp-top {
-                border-bottom-color: #ccc !important;
-            }
-            .opt-item {
-                padding: 6px 8px;
-            }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
         }
+        .modal-overlay.show { display: flex; }
+        @keyframes fadeIn { from { opacity:0; transform:scale(0.96); } to { opacity:1; transform:scale(1); } }
+        .modal-box {
+            background: #fff;
+            border-radius: 24px;
+            max-width: 480px;
+            width: 92%;
+            padding: 28px 24px 24px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+            text-align: center;
+        }
+        .modal-box .modal-icon { font-size: 42px; margin-bottom: 8px; }
+        .modal-box h3 { font-size: 19px; color: #1a3a5c; margin-bottom: 6px; }
+        .modal-box p { color: #4a5a6f; font-size: 14px; line-height: 1.6; margin-bottom: 4px; }
+        .modal-box .countdown {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a3a5c;
+            margin: 8px 0 14px;
+        }
+        .modal-box .countdown span { background: #eef3f9; padding: 2px 14px; border-radius: 40px; }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .modal-actions .btn-confirm {
+            padding: 8px 32px;
+            border-radius: 40px;
+            border: none;
+            background: #1a3a5c;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .modal-actions .btn-confirm:hover { background: #2a5f8a; }
+        .modal-actions .btn-cancel {
+            padding: 8px 24px;
+            border-radius: 40px;
+            border: 2px solid #dce3ed;
+            background: #fff;
+            color: #4a5a6f;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .modal-actions .btn-cancel:hover { border-color: #8aa3c9; background: #f5f9ff; }
+
+        .image-question-box {
+            background: #f7faff;
+            border: 1px solid #e8edf3;
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+        }
+        .image-question-box .iq-title { font-size: 16px; font-weight: 700; color: #1a3a5c; margin-bottom: 10px; }
+        .image-question-box .iq-image {
+            width: 100%;
+            max-height: 380px;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid #e0e8f0;
+            background: #fff;
+            margin-bottom: 12px;
+        }
+        .image-question-box .iq-question {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #1e2a3a;
+            padding: 10px 14px;
+            background: #fff;
+            border-radius: 8px;
+            border-left: 4px solid #2a5f8a;
+            margin-bottom: 10px;
+        }
+        .image-question-box .iq-answer {
+            font-size: 14px;
+            line-height: 1.9;
+            color: #1e2a3a;
+            background: #eaf4e8;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .image-question-box .iq-answer strong { color: #1a5a3a; }
+        .image-question-box .iq-answer ol { padding-left: 20px; margin: 6px 0; }
+        .image-question-box .iq-answer ol li { margin-bottom: 4px; }
+
+        .complete-page {
+            text-align: center;
+            padding: 30px 16px;
+        }
+        .complete-page .big-icon { font-size: 64px; margin-bottom: 12px; }
+        .complete-page h2 { font-size: 22px; color: #1a3a5c; margin-bottom: 6px; }
+        .complete-page p { color: #4a5a6f; font-size: 15px; line-height: 1.8; max-width: 440px; margin: 0 auto 12px; }
+
+        /* 移动端适配 (保持间距舒适) */
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .app-container { padding: 12px 10px 20px; border-radius: 16px; }
+            .app-header h1 { font-size: 17px; }
+            .header-info { font-size: 11px; padding: 3px 10px; }
+            .nav-tab { font-size: 12px; padding: 5px 10px; }
+            .section-title { font-size: 15px; }
+            .question-card { padding: 14px 14px; margin-bottom: 16px; }  /* 移动端适当减小但保持舒适 */
+            .question-card .q-text { font-size: 13px; }
+            .question-card .q-text .blank-input { width: 90px; font-size: 12px; padding: 2px 6px; }
+            .option-btn { font-size: 12px; padding: 5px 14px; }
+            .judge-btn { font-size: 12px; padding: 5px 18px; }
+            .feedback { font-size: 12px; padding: 4px 10px; }
+            .btn-primary { padding: 6px 20px; font-size: 13px; }
+            .btn-secondary { padding: 6px 16px; font-size: 12px; }
+            .modal-box { padding: 20px 16px; }
+            .modal-box .countdown { font-size: 28px; }
+            .image-question-box { padding: 12px 12px; }
+            .image-question-box .iq-answer { font-size: 13px; padding: 10px 12px; }
+            .image-question-box .iq-image { max-height: 240px; }
+            .complete-page h2 { font-size: 19px; }
+            .complete-page p { font-size: 14px; }
+            .short-card { margin-bottom: 16px; }
+            .short-card .short-header { padding: 12px 14px; }
+            .short-card .short-body { padding: 0 14px 14px; }
+            .short-card .short-body .answer-content { font-size: 13px; }
+        }
+        @media (max-width: 400px) {
+            .question-card .q-text .blank-input { width: 70px; font-size: 11px; }
+            .option-btn { font-size: 11px; padding: 4px 10px; }
+            .judge-btn { font-size: 11px; padding: 4px 14px; }
+            .nav-tab { font-size: 11px; padding: 4px 8px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #eef3f9; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #b8cade; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8aa3c9; }
     </style>
 </head>
 <body>
 
-    <!-- ===== 制作者标注（顶部） ===== -->
-    <div class="maker-stamp maker-stamp-top">✨ 本网页由沐春风制作 ✨</div>
-
-    <!-- ===== 头部 ===== -->
-    <div class="header-box">
-        <h1>⚡ 继电保护 · 复习与刷题</h1>
-        <button class="download-btn" onclick="downloadCurrent()">📥 下载当前内容</button>
+<div class="app-container" id="app">
+    <div class="app-header">
+        <h1>⚡ 牵引变电所运行岗位培训考试</h1>
+        <span class="header-info">📚 综合练习 · 简答记忆</span>
     </div>
 
-    <!-- ===== 导航栏 ===== -->
-    <nav class="nav-tabs" id="navTabs">
-        <button class="tab-btn" data-tab="fill">📝 填空题</button>
-        <button class="tab-btn" data-tab="choice">🔘 选择题</button>
-        <button class="tab-btn" data-tab="judge">⚖️ 判断题</button>
-        <button class="tab-btn" data-tab="qa">📘 简答题</button>
-        <button class="tab-btn active" data-tab="review">📖 复习资料</button>
-    </nav>
-
-    <!-- ============================================================ -->
-    <!-- 内容区：填空题 -->
-    <!-- ============================================================ -->
-    <div class="tab-content" id="tab-fill">
-        <h2 class="section-title">填空题 <span class="text-muted">（共17题）</span></h2>
-
-        <div class="question-card"><div class="q-title">1. 视在功率是电路的 ____。</div><div class="input-row"><input type="text" id="fill1" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(1)">提交</button></div><div class="answer-tip" id="fillTip1"></div></div>
-        <div class="question-card"><div class="q-title">2. 220kV及以上电力系统微机线路保护装置部分检验时间一般为 ____ 天。</div><div class="input-row"><input type="text" id="fill2" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(2)">提交</button></div><div class="answer-tip" id="fillTip2"></div></div>
-        <div class="question-card"><div class="q-title">3. 电压互感器二次侧不得 ____。</div><div class="input-row"><input type="text" id="fill3" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(3)">提交</button></div><div class="answer-tip" id="fillTip3"></div></div>
-        <div class="question-card"><div class="q-title">4. 电感线圈中的 ____ 不能突变。</div><div class="input-row"><input type="text" id="fill4" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(4)">提交</button></div><div class="answer-tip" id="fillTip4"></div></div>
-        <div class="question-card"><div class="q-title">5. 变压器的主要发热部位是 ____ 和绕组，导向冷却就是要加速这些部位的冷却。</div><div class="input-row"><input type="text" id="fill5" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(5)">提交</button></div><div class="answer-tip" id="fillTip5"></div></div>
-        <div class="question-card"><div class="q-title">6. 变压器瓦斯保护，重瓦斯作用于 ____。</div><div class="input-row"><input type="text" id="fill6" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(6)">提交</button></div><div class="answer-tip" id="fillTip6"></div></div>
-        <div class="question-card"><div class="q-title">7. 用于完成发电机并列操作的装置称为 ____。</div><div class="input-row"><input type="text" id="fill7" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(7)">提交</button></div><div class="answer-tip" id="fillTip7"></div></div>
-        <div class="question-card"><div class="q-title">8. 220kV及以上电力系统微机线路保护装置全部检验时间一般为 ____ 天。</div><div class="input-row"><input type="text" id="fill8" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(8)">提交</button></div><div class="answer-tip" id="fillTip8"></div></div>
-        <div class="question-card"><div class="q-title">9. 衡量电能质量好坏的指标是电压、频率和 ____。</div><div class="input-row"><input type="text" id="fill9" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(9)">提交</button></div><div class="answer-tip" id="fillTip9"></div></div>
-        <div class="question-card"><div class="q-title">10. 变压器的主要发热部位是绕组和 ____，导向冷却就是要加速这些部位的冷却。</div><div class="input-row"><input type="text" id="fill10" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(10)">提交</button></div><div class="answer-tip" id="fillTip10"></div></div>
-        <div class="question-card"><div class="q-title">11. 中央信号是由事故信号和 ____ 信号组成。</div><div class="input-row"><input type="text" id="fill11" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(11)">提交</button></div><div class="answer-tip" id="fillTip11"></div></div>
-        <div class="question-card"><div class="q-title">12. 电压互感器的二次回路和三次回路必须 ____。</div><div class="input-row"><input type="text" id="fill12" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(12)">提交</button></div><div class="answer-tip" id="fillTip12"></div></div>
-        <div class="question-card"><div class="q-title">13. 变压器瓦斯保护，轻瓦斯作用于 ____。</div><div class="input-row"><input type="text" id="fill13" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(13)">提交</button></div><div class="answer-tip" id="fillTip13"></div></div>
-        <div class="question-card"><div class="q-title">14. 中央信号是由 ____ 信号和预告信号组成。</div><div class="input-row"><input type="text" id="fill14" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(14)">提交</button></div><div class="answer-tip" id="fillTip14"></div></div>
-        <div class="question-card"><div class="q-title">15. 继电保护现场工作时，其工作人员不得少于 ____ 人。</div><div class="input-row"><input type="text" id="fill15" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(15)">提交</button></div><div class="answer-tip" id="fillTip15"></div></div>
-        <div class="question-card"><div class="q-title">16. 继电保护装置试验所用仪表的精度应为 ____ 级。</div><div class="input-row"><input type="text" id="fill16" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(16)">提交</button></div><div class="answer-tip" id="fillTip16"></div></div>
-        <div class="question-card"><div class="q-title">17. 电容器上的 ____ 不能突变。</div><div class="input-row"><input type="text" id="fill17" placeholder="输入答案"><button class="submit-btn" onclick="checkFill(17)">提交</button></div><div class="answer-tip" id="fillTip17"></div></div>
+    <div class="nav-tabs" id="navTabs">
+        <button class="nav-tab active" data-section="fill">📝 填空题</button>
+        <button class="nav-tab" data-section="choice">🔘 选择题</button>
+        <button class="nav-tab" data-section="judge">⚖️ 判断题</button>
+        <button class="nav-tab" data-section="short">📋 简答题</button>
+        <button class="nav-tab" data-section="image1">🖼️ 识图题 1</button>
+        <button class="nav-tab" data-section="image2">🖼️ 识图题 2</button>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- 内容区：选择题 -->
-    <!-- ============================================================ -->
-    <div class="tab-content" id="tab-choice">
-        <h2 class="section-title">单项选择题 <span class="text-muted">（共20题）</span></h2>
-
-        <div class="question-card"><div class="q-title">1. 快速切除线路任意一点故障的主保护是（）</div><label class="opt-item"><input type="radio" name="rad1" value="A"><span class="option-text">A. 距离保护</span></label><label class="opt-item"><input type="radio" name="rad1" value="B"><span class="option-text">B. 零序电流保护</span></label><label class="opt-item"><input type="radio" name="rad1" value="C"><span class="option-text">C. 纵联保护</span></label><label class="opt-item"><input type="radio" name="rad1" value="D"><span class="option-text">D. 功率方向保护</span></label><button class="submit-btn" onclick="checkRadio(1)">提交答案</button><div class="answer-tip" id="radTip1"></div></div>
-        <div class="question-card"><div class="q-title">2. 主保护或断路器拒动时，用来切除故障的保护是（）</div><label class="opt-item"><input type="radio" name="rad2" value="A"><span class="option-text">A. 后备保护</span></label><label class="opt-item"><input type="radio" name="rad2" value="B"><span class="option-text">B. 异常运行保护</span></label><label class="opt-item"><input type="radio" name="rad2" value="C"><span class="option-text">C. 辅助保护</span></label><label class="opt-item"><input type="radio" name="rad2" value="D"><span class="option-text">D. 备用保护</span></label><button class="submit-btn" onclick="checkRadio(2)">提交答案</button><div class="answer-tip" id="radTip2"></div></div>
-        <div class="question-card"><div class="q-title">3. 测量交流电流回路的绝缘电阻使用（）摇表</div><label class="opt-item"><input type="radio" name="rad3" value="A"><span class="option-text">A. 2000V</span></label><label class="opt-item"><input type="radio" name="rad3" value="B"><span class="option-text">B. 1500V</span></label><label class="opt-item"><input type="radio" name="rad3" value="C"><span class="option-text">C. 1000V</span></label><label class="opt-item"><input type="radio" name="rad3" value="D"><span class="option-text">D. 500V</span></label><button class="submit-btn" onclick="checkRadio(3)">提交答案</button><div class="answer-tip" id="radTip3"></div></div>
-        <div class="question-card"><div class="q-title">4. 60～110kV电压等级的设备不停电时的安全距离是（）</div><label class="opt-item"><input type="radio" name="rad4" value="A"><span class="option-text">A. 2.0米</span></label><label class="opt-item"><input type="radio" name="rad4" value="B"><span class="option-text">B. 1.5米</span></label><label class="opt-item"><input type="radio" name="rad4" value="C"><span class="option-text">C. 1.0米</span></label><label class="opt-item"><input type="radio" name="rad4" value="D"><span class="option-text">D. 0.5米</span></label><button class="submit-btn" onclick="checkRadio(4)">提交答案</button><div class="answer-tip" id="radTip4"></div></div>
-        <div class="question-card"><div class="q-title">5. 瓦斯继电器中，轻瓦斯定值是指（）</div><label class="opt-item"><input type="radio" name="rad5" value="A"><span class="option-text">A. 接点动作时的气体容积</span></label><label class="opt-item"><input type="radio" name="rad5" value="B"><span class="option-text">B. 油流速度</span></label><label class="opt-item"><input type="radio" name="rad5" value="C"><span class="option-text">C. 气流速度</span></label><label class="opt-item"><input type="radio" name="rad5" value="D"><span class="option-text">D. 以上都不是</span></label><button class="submit-btn" onclick="checkRadio(5)">提交答案</button><div class="answer-tip" id="radTip5"></div></div>
-        <div class="question-card"><div class="q-title">6. 电压互感器其二次值一般是（）</div><label class="opt-item"><input type="radio" name="rad6" value="A"><span class="option-text">A. 50V</span></label><label class="opt-item"><input type="radio" name="rad6" value="B"><span class="option-text">B. 100V</span></label><label class="opt-item"><input type="radio" name="rad6" value="C"><span class="option-text">C. 170V</span></label><label class="opt-item"><input type="radio" name="rad6" value="D"><span class="option-text">D. 200V</span></label><button class="submit-btn" onclick="checkRadio(6)">提交答案</button><div class="answer-tip" id="radTip6"></div></div>
-        <div class="question-card"><div class="q-title">7. 金属导体的电阻值随温度的升高而（）</div><label class="opt-item"><input type="radio" name="rad7" value="A"><span class="option-text">A. 增大</span></label><label class="opt-item"><input type="radio" name="rad7" value="B"><span class="option-text">B. 减小</span></label><label class="opt-item"><input type="radio" name="rad7" value="C"><span class="option-text">C. 不确定</span></label><label class="opt-item"><input type="radio" name="rad7" value="D"><span class="option-text">D. 不变</span></label><button class="submit-btn" onclick="checkRadio(7)">提交答案</button><div class="answer-tip" id="radTip7"></div></div>
-        <div class="question-card"><div class="q-title">8. 变压器励磁涌流中含有大量高次谐波，其中以（）为主</div><label class="opt-item"><input type="radio" name="rad8" value="A"><span class="option-text">A. 二次谐波</span></label><label class="opt-item"><input type="radio" name="rad8" value="B"><span class="option-text">B. 三次谐波</span></label><label class="opt-item"><input type="radio" name="rad8" value="C"><span class="option-text">C. 五次谐波</span></label><label class="opt-item"><input type="radio" name="rad8" value="D"><span class="option-text">D. 六次谐波</span></label><button class="submit-btn" onclick="checkRadio(8)">提交答案</button><div class="answer-tip" id="radTip8"></div></div>
-        <div class="question-card"><div class="q-title">9. 继电保护人员到现场进行事故调查分析工作，他可以担任的角色是（）</div><label class="opt-item"><input type="radio" name="rad9" value="A"><span class="option-text">A. 工作负责人</span></label><label class="opt-item"><input type="radio" name="rad9" value="B"><span class="option-text">B. 工作票签发人</span></label><label class="opt-item"><input type="radio" name="rad9" value="C"><span class="option-text">C. 工作班人员</span></label><label class="opt-item"><input type="radio" name="rad9" value="D"><span class="option-text">D. 工作许可人</span></label><button class="submit-btn" onclick="checkRadio(9)">提交答案</button><div class="answer-tip" id="radTip9"></div></div>
-        <div class="question-card"><div class="q-title">10. （）回路不属于二次回路</div><label class="opt-item"><input type="radio" name="rad10" value="A"><span class="option-text">A. 继电保护和自动装置回路</span></label><label class="opt-item"><input type="radio" name="rad10" value="B"><span class="option-text">B. 直流系统监察装置回路</span></label><label class="opt-item"><input type="radio" name="rad10" value="C"><span class="option-text">C. 发电机同期装置回路</span></label><label class="opt-item"><input type="radio" name="rad10" value="D"><span class="option-text">D. 发电机励磁回路</span></label><button class="submit-btn" onclick="checkRadio(10)">提交答案</button><div class="answer-tip" id="radTip10"></div></div>
-        <div class="question-card"><div class="q-title">11. 电压互感器二次回路中，每相电缆上的压降不应超过额定电压的（）</div><label class="opt-item"><input type="radio" name="rad11" value="A"><span class="option-text">A. 0.1</span></label><label class="opt-item"><input type="radio" name="rad11" value="B"><span class="option-text">B. 0.03</span></label><label class="opt-item"><input type="radio" name="rad11" value="C"><span class="option-text">C. 0.05</span></label><label class="opt-item"><input type="radio" name="rad11" value="D"><span class="option-text">D. 0.08</span></label><button class="submit-btn" onclick="checkRadio(11)">提交答案</button><div class="answer-tip" id="radTip11"></div></div>
-        <div class="question-card"><div class="q-title">12. 备用电源自投装置从接线上应保证动作（）</div><label class="opt-item"><input type="radio" name="rad12" value="A"><span class="option-text">A. 一次</span></label><label class="opt-item"><input type="radio" name="rad12" value="B"><span class="option-text">B. 两次</span></label><label class="opt-item"><input type="radio" name="rad12" value="C"><span class="option-text">C. 三次</span></label><label class="opt-item"><input type="radio" name="rad12" value="D"><span class="option-text">D. 多次</span></label><button class="submit-btn" onclick="checkRadio(12)">提交答案</button><div class="answer-tip" id="radTip12"></div></div>
-        <div class="question-card"><div class="q-title">13. 短路电流量最大的短路为（）</div><label class="opt-item"><input type="radio" name="rad13" value="A"><span class="option-text">A. 单相短路</span></label><label class="opt-item"><input type="radio" name="rad13" value="B"><span class="option-text">B. 两相短路</span></label><label class="opt-item"><input type="radio" name="rad13" value="C"><span class="option-text">C. 两相短路接地</span></label><label class="opt-item"><input type="radio" name="rad13" value="D"><span class="option-text">D. 三相短路</span></label><button class="submit-btn" onclick="checkRadio(13)">提交答案</button><div class="answer-tip" id="radTip13"></div></div>
-        <div class="question-card"><div class="q-title">14. 下列保护中，属于后备保护的是（）</div><label class="opt-item"><input type="radio" name="rad14" value="A"><span class="option-text">A. 变压器差动保护</span></label><label class="opt-item"><input type="radio" name="rad14" value="B"><span class="option-text">B. 高频闭锁零序保护</span></label><label class="opt-item"><input type="radio" name="rad14" value="C"><span class="option-text">C. 断路器失灵保护</span></label><label class="opt-item"><input type="radio" name="rad14" value="D"><span class="option-text">D. 瓦斯保护</span></label><button class="submit-btn" onclick="checkRadio(14)">提交答案</button><div class="answer-tip" id="radTip14"></div></div>
-        <div class="question-card"><div class="q-title">15. 方向阻抗继电器受电网频率变化影响较大的回路是（）</div><label class="opt-item"><input type="radio" name="rad15" value="A"><span class="option-text">A. 记忆回路</span></label><label class="opt-item"><input type="radio" name="rad15" value="B"><span class="option-text">B. 相位比较回路</span></label><label class="opt-item"><input type="radio" name="rad15" value="C"><span class="option-text">C. 幅值比较回路</span></label><label class="opt-item"><input type="radio" name="rad15" value="D"><span class="option-text">D. 执行元件回路</span></label><button class="submit-btn" onclick="checkRadio(15)">提交答案</button><div class="answer-tip" id="radTip15"></div></div>
-        <div class="question-card"><div class="q-title">16. 电力系统发生振荡时，（）可能会发生误动</div><label class="opt-item"><input type="radio" name="rad16" value="A"><span class="option-text">A. 负序电流保护</span></label><label class="opt-item"><input type="radio" name="rad16" value="B"><span class="option-text">B. 零序电流速断保护</span></label><label class="opt-item"><input type="radio" name="rad16" value="C"><span class="option-text">C. 零序电压保护</span></label><label class="opt-item"><input type="radio" name="rad16" value="D"><span class="option-text">D. 电流速断保护</span></label><button class="submit-btn" onclick="checkRadio(16)">提交答案</button><div class="answer-tip" id="radTip16"></div></div>
-        <div class="question-card"><div class="q-title">17. 快速切除线路和母线的短路故障，是提高电力系统（）的重要手段</div><label class="opt-item"><input type="radio" name="rad17" value="A"><span class="option-text">A. 静态稳定</span></label><label class="opt-item"><input type="radio" name="rad17" value="B"><span class="option-text">B. 暂态稳定</span></label><label class="opt-item"><input type="radio" name="rad17" value="C"><span class="option-text">C. 动态稳定</span></label><label class="opt-item"><input type="radio" name="rad17" value="D"><span class="option-text">D. 小干扰稳定</span></label><button class="submit-btn" onclick="checkRadio(17)">提交答案</button><div class="answer-tip" id="radTip17"></div></div>
-        <div class="question-card"><div class="q-title">18. 避雷器与被保护设备的距离，就保护效果来说（）</div><label class="opt-item"><input type="radio" name="rad18" value="A"><span class="option-text">A. 越远越好</span></label><label class="opt-item"><input type="radio" name="rad18" value="B"><span class="option-text">B. 越近越好</span></label><label class="opt-item"><input type="radio" name="rad18" value="C"><span class="option-text">C. 符合安规要求</span></label><label class="opt-item"><input type="radio" name="rad18" value="D"><span class="option-text">D. 距离大于1米</span></label><button class="submit-btn" onclick="checkRadio(18)">提交答案</button><div class="answer-tip" id="radTip18"></div></div>
-        <div class="question-card"><div class="q-title">19. 发电机失磁后，需从系统中吸取（）功率，将造成系统电压下降</div><label class="opt-item"><input type="radio" name="rad19" value="A"><span class="option-text">A. 有功</span></label><label class="opt-item"><input type="radio" name="rad19" value="B"><span class="option-text">B. 无功</span></label><label class="opt-item"><input type="radio" name="rad19" value="C"><span class="option-text">C. 有功和无功</span></label><label class="opt-item"><input type="radio" name="rad19" value="D"><span class="option-text">D. 视在</span></label><button class="submit-btn" onclick="checkRadio(19)">提交答案</button><div class="answer-tip" id="radTip19"></div></div>
-        <div class="question-card"><div class="q-title">20. 二次回路电缆芯线用于保护和测量仪表中电流回路的导线截面不应小于（）</div><label class="opt-item"><input type="radio" name="rad20" value="A"><span class="option-text">A. 1.5mm²</span></label><label class="opt-item"><input type="radio" name="rad20" value="B"><span class="option-text">B. 2.5mm²</span></label><label class="opt-item"><input type="radio" name="rad20" value="C"><span class="option-text">C. 3.5mm²</span></label><label class="opt-item"><input type="radio" name="rad20" value="D"><span class="option-text">D. 4.5mm²</span></label><button class="submit-btn" onclick="checkRadio(20)">提交答案</button><div class="answer-tip" id="radTip20"></div></div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- 内容区：判断题 -->
-    <!-- ============================================================ -->
-    <div class="tab-content" id="tab-judge">
-        <h2 class="section-title">判断题 <span class="text-muted">（选择正确或错误）</span></h2>
-
-        <div class="question-card"><div class="q-title">1. 通常所说的负载大小是指负载电流的大小。</div><label class="opt-item"><input type="radio" name="jud1" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud1" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(1)">提交答案</button><div class="answer-tip" id="judTip1"></div></div>
-        <div class="question-card"><div class="q-title">2. 一个线圈中，通以恒定电流时不产生自感电动势。</div><label class="opt-item"><input type="radio" name="jud2" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud2" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(2)">提交答案</button><div class="answer-tip" id="judTip2"></div></div>
-        <div class="question-card"><div class="q-title">3. 零序电流的分布与电源点的分布有关，与中性点接地的多少及位置无关。</div><label class="opt-item"><input type="radio" name="jud3" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud3" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(3)">提交答案</button><div class="answer-tip" id="judTip3"></div></div>
-        <div class="question-card"><div class="q-title">4. 220kV线路保护宜采用远后备方式，110kV线路保护宜采用近后备方式。</div><label class="opt-item"><input type="radio" name="jud4" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud4" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(4)">提交答案</button><div class="answer-tip" id="judTip4"></div></div>
-        <div class="question-card"><div class="q-title">5. 电流速断保护的保护范围，在各种运行方式下不会改变。</div><label class="opt-item"><input type="radio" name="jud5" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud5" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(5)">提交答案</button><div class="answer-tip" id="judTip5"></div></div>
-        <div class="question-card"><div class="q-title">6. 预告信号包括警铃和控制屏上的光字牌。</div><label class="opt-item"><input type="radio" name="jud6" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud6" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(6)">提交答案</button><div class="answer-tip" id="judTip6"></div></div>
-        <div class="question-card"><div class="q-title">7. 电力变压器不管其接线方式如何，其正、负、零序阻抗均相等。</div><label class="opt-item"><input type="radio" name="jud7" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud7" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(7)">提交答案</button><div class="answer-tip" id="judTip7"></div></div>
-        <div class="question-card"><div class="q-title">8. 微机保护动作后，若无打印报告则不论动作多少次只作1次统计。</div><label class="opt-item"><input type="radio" name="jud8" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud8" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(8)">提交答案</button><div class="answer-tip" id="judTip8"></div></div>
-        <div class="question-card"><div class="q-title">9. 为防御变压器过励磁应装设负序过电流保护。</div><label class="opt-item"><input type="radio" name="jud9" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud9" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(9)">提交答案</button><div class="answer-tip" id="judTip9"></div></div>
-        <div class="question-card"><div class="q-title">10. 变压器内部故障系指变压器线圈内发生故障。</div><label class="opt-item"><input type="radio" name="jud10" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud10" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(10)">提交答案</button><div class="answer-tip" id="judTip10"></div></div>
-        <div class="question-card"><div class="q-title">11. 保护的装置动作时间是指从保护开始动作到断路器跳开所经历的全部时间。</div><label class="opt-item"><input type="radio" name="jud11" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud11" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(11)">提交答案</button><div class="answer-tip" id="judTip11"></div></div>
-        <div class="question-card"><div class="q-title">12. 变压器差动保护不能代替瓦斯保护。</div><label class="opt-item"><input type="radio" name="jud12" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud12" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(12)">提交答案</button><div class="answer-tip" id="judTip12"></div></div>
-        <div class="question-card"><div class="q-title">13. 交直流回路可共用一条电缆，因为交直流回路都是独立系统。</div><label class="opt-item"><input type="radio" name="jud13" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud13" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(13)">提交答案</button><div class="answer-tip" id="judTip13"></div></div>
-        <div class="question-card"><div class="q-title">14. 发电机启动和停机保护，在正常工频运行时应退出。</div><label class="opt-item"><input type="radio" name="jud14" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud14" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(14)">提交答案</button><div class="answer-tip" id="judTip14"></div></div>
-        <div class="question-card"><div class="q-title">15. 一般来说，继电保护装置首先应满足快速性的要求。</div><label class="opt-item"><input type="radio" name="jud15" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud15" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(15)">提交答案</button><div class="answer-tip" id="judTip15"></div></div>
-        <div class="question-card"><div class="q-title">16. 三极管组成的放大电路，其直流负载线和交流负载线相交于静态工作点。</div><label class="opt-item"><input type="radio" name="jud16" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud16" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(16)">提交答案</button><div class="answer-tip" id="judTip16"></div></div>
-        <div class="question-card"><div class="q-title">17. 相—地制通道，即在输电线同一相作为高频通道。</div><label class="opt-item"><input type="radio" name="jud17" value="√"><span class="option-text">正确</span></label><label class="opt-item"><input type="radio" name="jud17" value="×"><span class="option-text">错误</span></label><button class="submit-btn" onclick="checkJudge(17)">提交答案</button><div class="answer-tip" id="judTip17"></div></div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- 内容区：简答题 -->
-    <!-- ============================================================ -->
-    <div class="tab-content" id="tab-qa">
-        <h2 class="section-title">简答题速记 <span class="text-muted">（核心概念 · 清晰要点）</span></h2>
-        <div style="background:#fff; border-radius:14px; padding:18px 18px 10px; box-shadow:0 2px 12px rgba(0,0,0,0.06); margin-bottom:12px;">
-            <p style="text-align:center; color:#5a6f8c; margin-bottom:16px;">📘 复习专用 · 抓住关键词 · 理解为主</p>
-            <div class="qa-card"><div class="q"><span class="num">1.</span> 继电保护装置的定义、功能及对变电站安全处理？</div><div class="a"><strong>定义</strong>：能反应电力系统故障或异常状态，并作用于断路器跳闸或发出信号的自动装置。<br><strong>功能</strong>：故障时快速切除故障设备，异常时发出信号。<br><strong>安全处理</strong>：保障电网稳定，防止设备损坏，缩小事故范围。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">2.</span> 故障、事故、不正常运行状态各层定义与联系？</div><div class="a"><strong>故障</strong>：设备短路等，电流剧增、电压降低。<br><strong>事故</strong>：故障导致系统运行遭到破坏。<br><strong>不正常运行</strong>：过负荷、过电压、频率偏差等，尚未发展为故障。<br><span class="highlight">联系</span>：不正常状态可能发展为故障，故障严重可能导致事故。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">3.</span> 最大运行方式、最小运行方式定义？</div><div class="a"><strong>最大运行方式</strong>：系统等值阻抗 <strong>最小</strong>，短路电流 <strong>最大</strong>（对应最多发电机、线路投入）。<br><strong>最小运行方式</strong>：系统等值阻抗 <strong>最大</strong>，短路电流 <strong>最小</strong>（对应最少投入）。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">4.</span> 常开触点、常闭触点的概念？</div><div class="a"><strong>常开触点 (NO)</strong>：继电器未动作时 <strong>断开</strong>，动作后闭合。<br><strong>常闭触点 (NC)</strong>：继电器未动作时 <strong>闭合</strong>，动作后断开。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">5.</span> 测量阻抗、整定阻抗（阻抗保护内容）？</div><div class="a"><strong>测量阻抗 Z<sub>m</sub></strong> = U / I（保护安装处测得），反映故障点到保护安装处的 <strong>距离</strong>。<br><strong>整定阻抗 Z<sub>set</sub></strong>：预先设定的 <strong>动作边界</strong>，用于判断故障是否在保护范围内。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">6.</span> 继电保护的基本功能作用、基本要求（四性）？</div><div class="a"><strong>功能</strong>：故障时跳闸，异常时发信号。<br><strong>四性</strong>：<br> • <strong>选择性</strong> — 仅切除故障元件<br> • <strong>快速性</strong> — 尽快切除，提高稳定性<br> • <strong>灵敏性</strong> — 对区内故障反应灵敏（用灵敏系数衡量）<br> • <strong>可靠性</strong> — 不拒动、不误动。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">7.</span> 主保护、后备保护（近后备保护）、辅助保护概念？</div><div class="a"><strong>主保护</strong>：切除被保护设备故障的保护（如差动、高频）。<br><strong>后备保护</strong>：主保护或断路器拒动时动作。<br> • <strong>近后备</strong>：本设备另一套保护（如断路器失灵保护）。<br> • <strong>远后备</strong>：相邻设备保护作为本设备后备。<br><strong>辅助保护</strong>：补充主保护不足，如过流保护。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">8.</span> 互感器（CT/PT）接线方式？为什么 CT 二次不能开路？PT 二次不能短路？</div><div class="a"><strong>CT 接线</strong>：星形、三角形、两相星形、两相差接等。<br><strong>PT 接线</strong>：星形、V/V、开口三角、单相等。<br><strong>CT 二次严禁开路</strong> — 开路会产生 <strong>高电压</strong>，危及人身与绝缘。<br><strong>PT 二次严禁短路</strong> — 短路会产生 <strong>大电流</strong>，烧毁 PT。<br><span class="highlight">注</span>：PT 二次侧不得短路。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">9.</span> 短路时的概念 / 分类 / 危害？</div><div class="a"><strong>概念</strong>：不同电位导体间通过电弧或短接形成通路。<br><strong>分类</strong>：三相短路、两相短路、两相接地短路、单相接地短路。<br><strong>危害</strong>：大电流→电动力、发热；电压降低→影响用户；破坏系统稳定。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">10.</span> 变压器的故障和不正常运行有哪些？</div><div class="a"><strong>故障</strong>：绕组相间短路、匝间短路、接地短路、铁芯故障。<br><strong>不正常运行</strong>：过负荷、过励磁、油面降低、冷却系统故障等。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">11.</span> 输电线路的纵联保护？</div><div class="a">利用通信通道（高频、光纤、微波等）将线路 <strong>两端电气量</strong> 进行比较，实现对线路 <strong>全长</strong> 故障快速切除的保护。典型：高频保护、光纤差动保护。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">12.</span> 速断保护（电流速断）？</div><div class="a">按 <strong>躲过最大运行方式</strong> 下线路末端故障电流整定，<strong>无时限</strong>或带小延时。<br><span class="highlight">特点</span>：保护范围为本线路 <strong>一部分</strong>（不能保护全长），动作迅速。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">13.</span> 零序电流的整定原则？</div><div class="a">① 躲过本线路末端接地故障时的 <strong>最大零序电流</strong>；<br>② 与相邻线路零序保护 <strong>配合</strong>（分段式整定，保证选择性）；<br>③ 考虑系统运行方式变化的影响。</div></div>
-            <div class="qa-card"><div class="q"><span class="num">14.</span> 方向圆阻抗继电器动作特性</div><div class="a"><p style="margin-bottom:8px;">距离保护是反映故障点至保护安装地点之间的距离（或阻抗），而距离继电器是根据距离的远近而确定动作时间的一种保护装置。</p><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWUv1qQl2x5UbxhYVJJjvH_x7Y1UoVtwACNiUAAv6GGFYT63L6Y9HM9TwE.jpg" alt="方向圆阻抗特性" style="max-width:100%; border-radius:8px; margin:6px 0;"></div></div>
-            <div class="qa-card"><div class="q"><span class="num">15.</span> 对相分量法？</div><div class="a">直接利用 <strong>A、B、C 三相</strong> 电压、电流的相量进行保护计算，<strong>不转换为对称分量</strong>（零、正、负序）。常用于故障选相、某些距离保护算法。</div></div>
-            <div class="qa-footer">📘 复习专用 · 抓住关键词 · 理解为主</div>
+    <!-- 填空题 -->
+    <div class="section active" id="section-fill">
+        <div class="section-title">填空题 <span class="count">共 20 题</span></div>
+        <div class="section-desc">输入答案后按回车键或点击空白处，即锁定并自动跳转至下一题。</div>
+        <div id="fillContainer"></div>
+        <div class="section-footer">
+            <span class="progress-info" id="fillProgress">已锁定 <strong>0</strong> / 20</span>
+            <button class="btn-primary" id="fillSubmitBtn" disabled>确认完成 →</button>
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- 内容区：复习资料 -->
-    <!-- ============================================================ -->
-    <div class="tab-content active" id="tab-review">
-        <div class="study-section">
-            <h2 style="font-size:22px; font-weight:700; color:#0b1e33; margin-bottom:16px;">📖 核心考点复习</h2>
-            <div class="module-title">模块一 电力变压器继电保护</div>
-            <h4 class="sub-title">一、变压器故障与异常运行状态</h4>
-            <p><strong>1. 油箱内部故障：</strong></p>
-            <ol><li>各相绕组之间的相间短路</li><li>单相绕组线匝之间的匝间短路</li><li>绕组或引出线碰外壳单相接地故障</li></ol>
-            <p><strong>2. 油箱外部故障：</strong></p>
-            <ol><li>引出线相间短路</li><li>绝缘套管破损、闪络引发引出线单相接地短路</li></ol>
-            <p><strong>3. 异常运行工况：</strong> 过负荷、过电流、零序过流、油面下降、铁芯过励磁、冷却系统故障、设备温升超标。</p>
-            <h4 class="sub-title">二、变压器七类保护配置及作用</h4>
-            <ol>
-                <li><strong>瓦斯保护（油浸式变压器专属内部保护）</strong><p>防护范围：油箱内部全部短路故障、油面降低故障。<br>动作逻辑：轻瓦斯动作发告警信号；重瓦斯动作直接跳闸切除变压器。</p></li>
-                <li><strong>纵差动保护、电流速断保护（变压器主保护）</strong><p>防护范围：绕组、引出线多相短路；大接地电流侧绕组及引线单相接地短路；绕组匝间短路。</p></li>
-                <li><strong>相间短路后备保护（作为瓦斯、差动主保护的后备）</strong><p>包含三类：过电流保护、复合电压起动过电流保护、负序过电流保护。</p></li>
-                <li><strong>接地故障保护</strong><p>适用场景：大接地电流电力系统，防御变压器外部引出线单相接地短路。</p></li>
-                <li><strong>过负荷保护</strong><p>功能：监测变压器三相对称过负荷，仅输出告警信号，正常不跳闸。</p></li>
-                <li><strong>过励磁保护</strong><p>功能：防范系统电压偏高、频率偏低造成铁芯过励磁，避免铁芯过热绝缘老化。</p></li>
-                <li><strong>其他辅助保护</strong><p>功能：温度保护、冷却系统故障保护，监测设备散热、温升异常。</p></li>
-            </ol>
-            <h4 class="sub-title">三、变压器保护分工总结</h4>
-            <ol>
-                <li><strong>双重主保护：</strong>瓦斯保护 + 纵差动保护，互补覆盖全部油箱内部故障，实现故障瞬时切除；</li>
-                <li><strong>后备保护：</strong>应对外部短路、主保护拒动故障，作为兜底保护；</li>
-                <li><strong>告警类保护：</strong>提前预警过载、漏油、过热、过励磁等非短路异常工况。</li>
-            </ol>
-            <hr class="divider-light">
-            <div class="module-title">模块二 距离保护基础 <span class="text-muted">（配套三张原理图）</span></div>
-            <h4 class="sub-title">1. 阻抗继电器基础定义与测量阻抗公式</h4>
-            <p>阻抗继电器是距离保护装置的核心元件。其主要作用是测量短路点到保护安装地点之间的阻抗，并与整定阻抗值进行比较，以确定保护是否应该动作。</p>
-            <div class="img-card"><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWSttqQfhkUfYx1M9myrbbpCUpe9Z97wAC3CQAAv6GEFYkr0HP2RcyhTwE.png" alt="阻抗继电器核心作用与测量阻抗公式"><div class="img-desc">图1：阻抗继电器核心作用与测量阻抗公式</div></div>
-            <h4 class="sub-title">2. 正常负荷阻抗与故障短路阻抗、保护动作判据</h4>
-            <p>正常运行时测量阻抗为负荷阻抗（数值大、角度小）；故障时测量阻抗骤降（数值小、角度接近线路阻抗角）。距离保护据此区分正常运行与短路故障。</p>
-            <div class="img-card"><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWStxqQfiGoAFfQYoTBNKb_P3x_vC30gAC3SQAAv6GEFaIzK_jijsdUTwE.png" alt="负荷阻抗与短路阻抗对比图"><div class="img-desc">图2：正常运行 / 故障下测量阻抗区分与距离保护动作逻辑</div></div>
-            <h4 class="sub-title">3. 方向圆阻抗继电器动作特性（R-X 阻抗平面图形）</h4>
-            <p>方向圆阻抗继电器在 R-X 复平面上具有方向性动作圆，仅当测量阻抗落在圆内且位于正方向时动作，反向故障不会误动，具备天然的方向选择性。</p>
-            <div class="img-card"><img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWSt5qQfilF5N3P45MqP7oE8YBxybKLAAC3yQAAv6GEFalBzDHmrfYUjwE.png" alt="方向圆阻抗特性示意图"><div class="img-desc">图3：方向圆阻抗继电器复平面动作特性图</div></div>
-            <hr class="divider-light">
-            <div class="module-title">📌 距离保护 · 高频简答背诵</div>
-            <ol class="qa-list">
-                <li><strong>瓦斯保护优缺点</strong><p>优点：可反应轻微匝间短路、油箱漏油；差动无法检测轻微匝间故障。<br>缺点：仅油浸变可用，不能保护外部套管、引线故障。</p></li>
-                <li><strong>变压器双重主保护含义</strong><p>瓦斯保护负责油箱内部故障，差动保护覆盖绕组引线短路，两套互补，完整切除内部故障。</p></li>
-                <li><strong>距离保护对比电流保护优势</strong><p>保护范围不受系统运行方式、短路电流影响，保护长度稳定，高压线路主流保护。</p></li>
-                <li><strong>方向圆阻抗继电器具备方向性原因</strong><p>动作圆仅在阻抗平面正方向，反向故障测量阻抗在圆外，不会误动。</p></li>
-                <li><strong>过负荷保护只告警不跳闸</strong><p>过负荷属于异常工况，非短路故障，短时过载不会损坏设备，仅需提醒减负荷。</p></li>
-            </ol>
+    <!-- 选择题 -->
+    <div class="section" id="section-choice">
+        <div class="section-title">选择题 <span class="count">共 20 题</span></div>
+        <div class="section-desc">点击选项后立即锁定，并自动跳转至下一题。</div>
+        <div id="choiceContainer"></div>
+        <div class="section-footer">
+            <span class="progress-info" id="choiceProgress">已锁定 <strong>0</strong> / 20</span>
+            <button class="btn-primary" id="choiceSubmitBtn" disabled>确认完成 →</button>
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- 底部 -->
-    <!-- ============================================================ -->
-    <div class="maker-stamp">✨ 本网页由沐春风制作 · 祝您复习顺利 ✨</div>
-
-    <!-- ============================================================ -->
-    <!-- 倒计时提示条（固定在底部） -->
-    <!-- ============================================================ -->
-    <div class="countdown-bar" id="countdownBar">
-        <span class="countdown-text" id="countdownText">⏳ 3 秒后自动跳转...</span>
-        <button class="countdown-btn" id="countdownJumpBtn">立即跳转</button>
-        <button class="countdown-btn cancel-btn" id="countdownCancelBtn">取消</button>
+    <!-- 判断题 -->
+    <div class="section" id="section-judge">
+        <div class="section-title">判断题 <span class="count">共 20 题</span></div>
+        <div class="section-desc">点击「对」或「错」后立即锁定，并自动跳转至下一题。</div>
+        <div id="judgeContainer"></div>
+        <div class="section-footer">
+            <span class="progress-info" id="judgeProgress">已锁定 <strong>0</strong> / 20</span>
+            <button class="btn-primary" id="judgeSubmitBtn" disabled>确认完成 →</button>
+        </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- JavaScript -->
-    <!-- ============================================================ -->
-    <script>
-        // ================================================================
-        // 导航切换 & 工具函数
-        // ================================================================
-        const contents = {
-            fill: document.getElementById('tab-fill'),
-            choice: document.getElementById('tab-choice'),
-            judge: document.getElementById('tab-judge'),
-            qa: document.getElementById('tab-qa'),
-            review: document.getElementById('tab-review')
+    <!-- 简答题 -->
+    <div class="section" id="section-short">
+        <div class="section-title">📋 简答题 <span class="count">14 个核心问题</span></div>
+        <div class="section-desc">点击问题展开/收起答案，方便自测记忆。建议先回忆口诀，再查看详解。</div>
+        <div id="shortContainer"></div>
+    </div>
+
+    <!-- 识图题 1 -->
+    <div class="section" id="section-image1">
+        <div class="section-title">🖼️ 识图题 1 <span class="count">电动操动机构隔离开关</span></div>
+        <div class="image-question-box">
+            <div class="iq-title">📌 题目</div>
+            <div class="iq-question"><strong>依据应用CL2型电动操动机构隔离开关的控制信号回路，分析其所控制的隔离开关手动分闸控制过程。</strong></div>
+            <img class="iq-image" src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWgNFqRl_2y8X8ifWfIVc8I-K1mkLDcQACKyYAAoFqOFal9dg5e1xeojwE.jpg" alt="识图题1" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <div style="display:none;color:#b0b8c4;padding:16px;text-align:center;background:#f5f7fa;border-radius:8px;">⚠️ 图片加载失败</div>
+            <div class="iq-answer">
+                <strong>✅ 参考答案（分步解析）：</strong><br>
+                <ol>
+                    <li><strong>发出分闸指令：</strong>将控制开关“2SA”转至分闸位，触点2SA2-4闭合，分闸接触器线圈（KMO）得电：<br>+WC → 1FU → 1KTP4-12 → 1SA2-1 → 2SA2-4 → KMO5-6 → KMC11-12 → 2ST1-2 → 3ST1-2 → 2FU → -WC。</li>
+                    <li><strong>接触器自保持：</strong>KMO得电后，辅助触点KMO7-8闭合，实现自保持。</li>
+                    <li><strong>电机通电旋转：</strong>KMO主触点KMO1-2、KMO3-4闭合，接通电动机回路：<br>+WO → 3FU → QM1-2 → 电机转子 → KMO1-2 → 励磁绕组W1-4 → KMO3-4 → QM3-4 → 4FU → -WO。<br>电动机逆时针旋转，驱动隔离开关分闸。</li>
+                    <li><strong>分闸到位停止：</strong>分闸到位后，行程开关2ST1-2断开，KMO失电，电机停转。</li>
+                    <li><strong>位置信号：</strong>辅助接点QS17-19闭合，分闸位置继电器KTP得电，KTP11-9闭合，绿灯HLG亮起，表示分闸位。</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- 识图题 2 -->
+    <div class="section" id="section-image2">
+        <div class="section-title">🖼️ 识图题 2 <span class="count">馈线侧电气主接线</span></div>
+        <div class="image-question-box">
+            <div class="iq-title">📌 题目</div>
+            <div class="iq-question"><strong>如图所示为某牵引变电所馈线侧电气主接线图，依据该图写出A相电容投入运行倒闸操作步骤。</strong></div>
+            <img class="iq-image" src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEWgNNqRmAD4iZO1PZEa4MQIh_uXr1NDgACLSYAAoFqOFZn_F8lVErfgzwE.jpg" alt="识图题2" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <div style="display:none;color:#b0b8c4;padding:16px;text-align:center;background:#f5f7fa;border-radius:8px;">⚠️ 图片加载失败</div>
+            <div class="iq-answer">
+                <strong>✅ 参考答案：</strong><br>
+                <ol>
+                    <li>确认A相电容的接地线已经全部撤除。</li>
+                    <li>确认A相电容的接地封线已经全部撤除。</li>
+                    <li>确认A相电容已无其他接地。</li>
+                    <li>合上2411QS（隔离开关）。</li>
+                    <li>确认2411QS处在合闸位。</li>
+                    <li>推上241QF小车至运行位止滑。</li>
+                    <li>闭锁分闸门。</li>
+                    <li>合上241QF（断路器）。</li>
+                    <li>确认241QF处在合闸位。</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- 完成页 -->
+    <div class="section" id="section-complete">
+        <div class="complete-page">
+            <div class="big-icon">🎉</div>
+            <h2>恭喜完成全部答题！</h2>
+            <p>你已经完成了填空题、选择题和判断题的所有作答。<br>可点击上方导航查看识图题或回顾各区域题目。</p>
+            <p style="font-size:13px;color:#8a9aaf;margin-top:8px;">💡 温馨提示：可对照原始题库文档核对答案。</p>
+            <button class="btn-secondary" style="margin-top:14px;" onclick="location.reload()">🔄 重新练习</button>
+        </div>
+    </div>
+</div>
+
+<!-- 模态框（跳转确认） -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+        <div class="modal-icon">📌</div>
+        <h3 id="modalTitle">确认跳转</h3>
+        <p id="modalDesc">你已完成当前区域所有题目，是否前往下一部分？</p>
+        <div class="countdown" id="modalCountdown"><span>3</span></div>
+        <div class="modal-actions">
+            <button class="btn-confirm" id="modalConfirm">✅ 确认跳转</button>
+            <button class="btn-cancel" id="modalCancel">⏸️ 稍后</button>
+        </div>
+    </div>
+</div>
+
+<!-- 每日弹窗（沐春风） -->
+<div class="modal-overlay" id="popupOverlay" style="z-index:1000;">
+    <div class="modal-box">
+        <div class="modal-icon">🌸</div>
+        <h3>本网页由沐春风制作</h3>
+        <p style="margin: 10px 0 4px;">欢迎使用牵引变电所培训考试练习系统。<br>每日首次打开时显示此提示。</p>
+        <div style="margin-top: 18px;">
+            <button class="btn-confirm" id="popupConfirm">我知道了</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    //  题库数据（填空、选择、判断）
+    // ============================================================
+
+    const fillData = [
+        { id: 1, text: '铁路牵引变电所27.5kV电压互感器高速铁路安装于____或GIS柜内。', answer: '室外' },
+        { id: 2, text: '送电操作原则:先合上____隔离开关，然后合上负荷侧隔离开关，最后合上断路器。', answer: '电源侧' },
+        { id: 3, text: '牵引变电所另一台变比为____kV所用变压器1ZB通过断路器、隔离开关接入母线。', answer: '27.5/0.23' },
+        { id: 4, text: '距牵引供电设备带电部分不足4m的燃着物体，使用水或灭火器灭火时，牵引供电设备必须____。', answer: '停电' },
+        { id: 5, text: '测量断路器的分、合闸时间，应在断路器的____操作电压、气压或液压下进行。', answer: '额定' },
+        { id: 6, text: '单人操作应优先通过____、保护测控盘操作。', answer: '后台监控机' },
+        { id: 7, text: '____测量是断路器试验中的一项基本试验。', answer: '绝缘电阻' },
+        { id: 8, text: '盘后接线图及端子排图都是以二次展开图为依据，利用"____"对应标号画出的。', answer: '相对标号法' },
+        { id: 9, text: '带电作业用的绝缘工具有效绝缘长度110kV不得小于____mm。', answer: '1300' },
+        { id: 10, text: '无人值守的变配电所已安装27.5kV电压互感器高、低压自投装置的变电所，其自投功能应____。', answer: '投入' },
+        { id: 11, text: '常闭接点是指设备在正常状态时____的接点，也称为动断接点或反接点。', answer: '闭合' },
+        { id: 12, text: '____或进行倒闸作业时不得进行交接班。未办完交接班手续时，交班人员不得擅离职守，应继续担当值守工作。', answer: '应急故障处理' },
+        { id: 13, text: '温度保护试验时要求动作温度误差应不超过____。', answer: '±3%' },
+        { id: 14, text: '牵引供电远动系统的监控对象为铁路牵引____。', answer: '供电设备' },
+        { id: 15, text: '变压器的差动保护跳闸后，应检查各侧差动保护用____之间的电气设备。', answer: '电流互感器' },
+        { id: 16, text: '35kV多元件支柱绝缘子的交流耐压试验值，两个胶合元件者，每____kV。', answer: '50' },
+        { id: 17, text: '绳子试验外观合格标准为____。', answer: '无破损断股' },
+        { id: 18, text: '牵引、电力变配电所控制室，应采取____措施。', answer: '防雷' },
+        { id: 19, text: '电气设备一般具有运行、热备用、冷备用、____四种状态。', answer: '检修' },
+        { id: 20, text: '正常状态下，直流系统的正、负极是对地____。', answer: '绝缘' }
+    ];
+
+    const choiceData = [
+        { id: 21, text: '在有雷雨的情况下必须巡视室外高压设备时，要（ ）', options: ['A. 穿绝缘靴、戴防护眼镜', 'B. 穿绝缘靴、戴绝缘手套', 'C. 穿绝缘靴、戴安全帽', 'D. 戴安全帽和绝缘手套'], answer: 'C' },
+        { id: 22, text: '新设备投运（ ）个月内宜进行一次全面的带电检测。', options: ['A. 3', 'B. 12', 'C. 1', 'D. 6'], answer: 'C' },
+        { id: 23, text: '室内配电装置上，接地线应装在该装置导电部分的规定部位，这些部位的油漆应（ ）', options: ['A. 刮去并标出记号', 'B. 擦拭干净', 'C. 标出记号', 'D. 刮去'], answer: 'A' },
+        { id: 24, text: '用完的牵引变电所工作票应保存至少（ ）个月方可销毁。', options: ['A. 6', 'B. 12', 'C. 3', 'D. 1'], answer: 'C' },
+        { id: 25, text: '倒闸票据执行后的加盖"已执行"印章，未执行的加盖（ ）印章。', options: ['A. 作废', 'B. 已执行', 'C. 保留', 'D. 未执行'], answer: 'A' },
+        { id: 26, text: '决定避雷器放电特性的是（ ）', options: ['A. 阀片与间隙', 'B. 外壳', 'C. 阀片', 'D. 间隙'], answer: 'D' },
+        { id: 27, text: '为保证人身安全，其他人员与牵引供电设备带电部分的距离不得小于（ ）mm。', options: ['A. 1000', 'B. 2000', 'C. 3000', 'D. 1500'], answer: 'B' },
+        { id: 28, text: '隔离开关（ ）灭弧能力。', options: ['A. 有', 'B. 有少许', 'C. 没有', 'D. 不一定'], answer: 'C' },
+        { id: 29, text: '在断路器控制回路中，KCC为（ ）', options: ['A. 分闸线圈', 'B. 合闸线圈', 'C. 分闸位置继电器', 'D. 合闸位置继电器'], answer: 'D' },
+        { id: 30, text: '绝缘监察系统电路是根据（ ）构成的。', options: ['A. 三相对称电路', 'B. 中间放大电路', 'C. 直流电桥原理', 'D. 整流原理'], answer: 'C' },
+        { id: 31, text: '在停电作业(55~110kV)无/有防护栅情况下，设备带电部分距作业人员小于（ ）mm须停电。', options: ['A. 2500、1500', 'B. 1500、1000', 'C. 1000、600', 'D. 700、350'], answer: 'B' },
+        { id: 32, text: '备用电源/主变自投功能由（ ）装置控制实现。', options: ['A. 环境监控', 'B. 主变后备保护', 'C. 主变主保护', 'D. 主变测控'], answer: 'D' },
+        { id: 33, text: '二次回路中的控制单元主要由（ ）、相应的控制继电器组成。', options: ['A. 指示灯', 'B. 隔离开关', 'C. 控制开关', 'D. 断路器'], answer: 'C' },
+        { id: 34, text: '禁止（ ）在高压防护栅内单独停留和作业。', options: ['A. 工作领导人', 'B. 值守人员', 'C. 跟班干部', 'D. 任何人'], answer: 'D' },
+        { id: 35, text: '用热成像仪检测发现，电气接头连接处有温升，导线温度正常，温升原因是（ ）', options: ['A. 连接处电阻较大', 'B. 该相的谐波较大', 'C. 该相的负载较高', 'D. 连接处辐射较大'], answer: 'A' },
+        { id: 36, text: '油浸式电流互感器绝缘电阻二次绕组及地不小于（ ）MΩ。', options: ['A. 2500', 'B. 1000', 'C. 10000', 'D. 5000'], answer: 'B' },
+        { id: 37, text: '现场检修用喷灯，火焰与带电部分的距离：电压在330kV不得小于（ ）m。', options: ['A. 2', 'B. 2.5', 'C. 4', 'D. 3'], answer: 'C' },
+        { id: 38, text: '（ ）可参加检修工作，举凡根据当班值班员的要求能随时退出检修组。', options: ['A. 变电所工长', 'B. 当班助理值班员', 'C. 作业组工作领导人', 'D. 当班值班员'], answer: 'B' },
+        { id: 39, text: '下列（ ）接线的电压互感器可测对地电压。', options: ['A. YN,yn', 'B. Y,y', 'C. Y,yn', 'D. D,yn'], answer: 'A' },
+        { id: 40, text: '下列选项不属于单母线接线优点的是（ ）', options: ['A. 接线简单', 'B. 操作方便', 'C. 容易扩建', 'D. 可靠性高'], answer: 'D' }
+    ];
+
+    const judgeData = [
+        { id: 41, text: '隔离开关、负荷开关的机械或电气闭锁装置应准确可靠。', answer: true },
+        { id: 42, text: '变压器套管严重破损和放电应停止运行。', answer: true },
+        { id: 43, text: '由于电弧在电动力、热力作用下能移动，很容易造成飞弧短路和伤人，或引起事故的扩大。', answer: true },
+        { id: 44, text: 'SF6断路器(开关)进行操作时，检修人员可以在其外壳上进行工作。', answer: false },
+        { id: 45, text: '倒闸作业按操作卡片进行，没有操作卡片的倒闸作业由值班员编写倒闸表并记入值班日志中。', answer: true },
+        { id: 46, text: '悬式绝缘子的交流耐压试验电压均取60kV。', answer: true },
+        { id: 47, text: '牵引网的防雷接地装置在贯通地线上的接入点与其他设备间距不应小于15m。', answer: true },
+        { id: 48, text: '任何电气设备在未确认无电以前，应一律认为有电，不能随意接触电气设备。', answer: true },
+        { id: 49, text: '干式变压器安装后，应进行直流电阻及绝缘测试。', answer: true },
+        { id: 50, text: '识读展开式接线图应遵循一定的原则，即:先看交流回路，后看直流回路。', answer: true },
+        { id: 51, text: '变配电所内应配置自动灭火系统、气体灭火系统或其他适宜的灭火设施。', answer: true },
+        { id: 52, text: '装设接地线应先接导体端，后接接地端，接地线应接触良好，连接应可靠。拆接地线的顺序与此相反。', answer: false },
+        { id: 53, text: 'AT牵引网中，每隔一段适当距离设置一台自耦变压器。', answer: true },
+        { id: 54, text: '三相交流电路引入线采用L1、L2、L3、N、PE标记，直流系统的电源正、负线分别用L+、L-标记。', answer: true },
+        { id: 55, text: 'SF6的电晕起始电压与击穿电压相近，电晕放电容易发展成全间隙击穿。', answer: true },
+        { id: 56, text: 'SF6气体含水量的测定应在断路器充气72h后进行。', answer: false },
+        { id: 57, text: '使用直流电流表时，还必须注意电流表的极性和电源的极性，不能接反，否则表针将向反方向偏转，而有可能使表针碰弯。', answer: true },
+        { id: 58, text: '如果防雷设备接地不良可能在雷电入侵时产生较高的反击电压危及设备和人员安全。', answer: true },
+        { id: 59, text: '遇有故障或事故时，值班员应收集后台机(保护装置)显示的故障信息、相关参数及打印数据。', answer: true },
+        { id: 60, text: '变配电所故障发生故障时，值班人员不得慌乱，不准盲目处置，以免事故进一步扩大。', answer: true }
+    ];
+
+    // ============================================================
+    //  简答题数据（14个核心问题）
+    // ============================================================
+
+    const shortData = [
+        {
+            id: 1,
+            question: '电压互感器（PT）巡视检查项目和要求？',
+            answer: `<div class="koujue">口诀：<strong>外、音、油、接、瓷、压</strong></div>
+                <ul>
+                    <li><strong>外</strong>：外壳清洁，无裂纹、无渗漏油。</li>
+                    <li><strong>音</strong>：内部无放电声或剧烈异响。</li>
+                    <li><strong>油</strong>：油位、油色正常（无发黑），无严重漏油。</li>
+                    <li><strong>接</strong>：一次侧熔断器完好，二次侧空气开关无跳闸，接线端子无过热。</li>
+                    <li><strong>瓷</strong>：瓷瓶无破损、无闪络痕迹。</li>
+                    <li><strong>压</strong>：二次电压指示正常，无异常波动。</li>
+                </ul>`
+        },
+        {
+            id: 2,
+            question: '常见断路器故障现象？',
+            answer: `<div class="koujue">口诀：<strong>拒、误、异、过、漏</strong></div>
+                <ul>
+                    <li><strong>拒</strong>：拒合或拒分（控制回路断线、机构卡滞）。</li>
+                    <li><strong>误</strong>：误动（无信号时自行跳闸或合闸）。</li>
+                    <li><strong>异</strong>：运行中有异常声响（嗡嗡声过大或有放电声）。</li>
+                    <li><strong>过</strong>：触头或接线板严重发热、变色（过载或接触不良）。</li>
+                    <li><strong>漏</strong>：SF6气压低报警或漏气，真空泡漏气（耐压下降）。</li>
+                </ul>`
+        },
+        {
+            id: 3,
+            question: '编写操作卡片要遵守的原则？',
+            answer: `<div class="koujue">口诀：<strong>先一次后二次，先隔离后负荷，先送电后保护</strong></div>
+                <ul>
+                    <li><strong>停电</strong>：先断<strong>负荷侧</strong>（断路器），再断<strong>电源侧</strong>（隔离开关）；先停<strong>二次</strong>（保护），再停<strong>一次</strong>。</li>
+                    <li><strong>送电</strong>：顺序<strong>相反</strong>（先电源侧刀闸，再负荷侧刀闸，最后合断路器）。</li>
+                    <li><strong>核心</strong>：严防带负荷拉合刀闸，操作术语必须<strong>标准规范</strong>。</li>
+                </ul>`
+        },
+        {
+            id: 4,
+            question: '办理工作票时，值守人员做好安全措施后，到作业地点要做的工作？',
+            answer: `<div class="koujue">口诀：<strong>对位置、指带电、交底签字</strong></div>
+                <ul>
+                    <li><strong>对位置</strong>：核对作业地点的设备<strong>双重名称</strong>（编号+名称）完全一致。</li>
+                    <li><strong>指带电</strong>：向工作负责人<strong>指明邻近带电设备</strong>的位置和注意事项。</li>
+                    <li><strong>交底签字</strong>：将所做的安全措施（接地线、遮拦）向工作负责人<strong>交代清楚</strong>，双方确认后<strong>签字许可</strong>。</li>
+                </ul>`
+        },
+        {
+            id: 5,
+            question: '热备用、冷备用的定义？',
+            answer: `<ul>
+                <li><strong>热备用</strong>：<strong>只断断路器</strong>，隔离开关仍在<strong>合闸</strong>位置。只要合上断路器，设备就能立即带电运行（“热”即随时可投）。</li>
+                <li><strong>冷备用</strong>：<strong>断路器断开</strong>，且两侧<strong>隔离开关也全部断开</strong>。设备与电源完全隔离（“冷”即彻底隔离，需恢复操作较多）。</li>
+                </ul>`
+        },
+        {
+            id: 6,
+            question: '什么是展开式原理图？',
+            answer: `<div class="koujue">口诀：<strong>按功能分开画，看支路找线圈</strong></div>
+                <p>它是将二次回路中同一个元件的<strong>线圈和触点</strong>拆开，按<strong>交流电流、交流电压、直流控制、信号</strong>等不同功能分别画成<strong>横平竖直</strong>的独立支路。</p>
+                <p><strong>记忆点</strong>：不看整体位置，只看<strong>电流从哪流进，从哪流出</strong>，便于分析故障逻辑。</p>`
+        },
+        {
+            id: 7,
+            question: '工作票签发人签发工作票时要做到什么？',
+            answer: `<div class="koujue">口诀：<strong>三熟三防，措施严密</strong></div>
+                <ul>
+                    <li><strong>三熟</strong>：熟悉设备、熟悉系统接线、熟悉工艺规程。</li>
+                    <li><strong>三防</strong>：防止误登带电设备、防止误入带电间隔、防止误触邻近带电体。</li>
+                    <li><strong>要求</strong>：确保工作<strong>必要性</strong>、<strong>安全性</strong>，安全措施<strong>正确完备</strong>，工作班成员<strong>资质合适</strong>。</li>
+                </ul>`
+        },
+        {
+            id: 8,
+            question: '执行工作票作业中需暂时中断工作离开时，工作领导人负责做什么？',
+            answer: `<div class="koujue">口诀：<strong>收票、拆栏、人清场</strong></div>
+                <ul>
+                    <li><strong>收票</strong>：暂时收回工作票，并通知值守人员。</li>
+                    <li><strong>拆栏</strong>：拆除临时遮拦、标示牌（如需恢复送电状态）。</li>
+                    <li><strong>人清场</strong>：带领全体工作人员<strong>撤离作业现场</strong>，确认无人滞留在设备区。若需恢复工作，必须重新办理许可手续。</li>
+                </ul>`
+        },
+        {
+            id: 9,
+            question: '牵引变电所应有技术文件有哪些？',
+            answer: `<div class="koujue">口诀：<strong>图、规、记、案</strong></div>
+                <ul>
+                    <li><strong>图</strong>：主接线图、二次接线图、设备安装图。</li>
+                    <li><strong>规</strong>：运行规程、安全工作规程、调度规程。</li>
+                    <li><strong>记</strong>：设备台账、出厂说明书、试验报告、履历簿。</li>
+                    <li><strong>案</strong>：事故预案、应急处理方案。</li>
+                </ul>`
+        },
+        {
+            id: 10,
+            question: '变压器必须立即停止运行的紧急情况？',
+            answer: `<div class="koujue">口诀：<strong>烟、火、爆、裂、温、油</strong></div>
+                <ul>
+                    <li><strong>烟</strong>：冒烟或着火。</li>
+                    <li><strong>火</strong>：内部有爆炸声。</li>
+                    <li><strong>爆</strong>：瓷套严重破损或闪络放电。</li>
+                    <li><strong>裂</strong>：严重漏油致使油位低于下限。</li>
+                    <li><strong>温</strong>：在正常负荷下，油温<strong>急剧异常升高</strong>（超过允许值且继续上升）。</li>
+                    <li><strong>油</strong>：油色剧变（发黑）或油内有碳质物。</li>
+                </ul>`
+        },
+        {
+            id: 11,
+            question: '各种巡视中，一般项目和要求有哪些？',
+            answer: `<div class="koujue">口诀：<strong>声、味、温、压、瓷、接地</strong></div>
+                <ul>
+                    <li><strong>声</strong>：设备运行声音均匀，无放电或异响。</li>
+                    <li><strong>味</strong>：无焦糊味、绝缘烧损异味。</li>
+                    <li><strong>温</strong>：设备外壳、接线端子温度正常（无变色、无融化）。</li>
+                    <li><strong>压</strong>：仪表指示（电压、电流、气压）正常。</li>
+                    <li><strong>瓷</strong>：绝缘子无裂纹、无污秽、无电晕。</li>
+                    <li><strong>接地</strong>：接地线连接牢固，无锈蚀断股。</li>
+                </ul>`
+        },
+        {
+            id: 12,
+            question: '变电所需要增加巡视次数的情况？',
+            answer: `<div class="koujue">口诀：<strong>雷、大、新、缺、保</strong></div>
+                <ul>
+                    <li><strong>雷</strong>：雷雨、大风、大雪、大雾等<strong>恶劣天气</strong>前后。</li>
+                    <li><strong>大</strong>：系统发生<strong>大故障</strong>或<strong>大负荷</strong>（过负荷20%以上）时。</li>
+                    <li><strong>新</strong>：新投运、大修后或设备<strong>刚改造</strong>的初期。</li>
+                    <li><strong>缺</strong>：设备存在<strong>缺陷</strong>尚未消除，或有异响时。</li>
+                    <li><strong>保</strong>：<strong>重要节假日</strong>或<strong>大型保电任务</strong>期间。</li>
+                </ul>`
+        },
+        {
+            id: 13,
+            question: '有人值守牵引变电所应建立哪些原始记录？',
+            answer: `<div class="koujue">口诀：<strong>日、巡、操、缺、票、修</strong></div>
+                <ul>
+                    <li><strong>日</strong>：运行日志（值班日志）。</li>
+                    <li><strong>巡</strong>：设备巡视记录。</li>
+                    <li><strong>操</strong>：倒闸操作记录。</li>
+                    <li><strong>缺</strong>：设备缺陷记录。</li>
+                    <li><strong>票</strong>：工作票与操作票执行记录。</li>
+                    <li><strong>修</strong>：检修、试验及异常跳闸记录。</li>
+                </ul>`
+        },
+        {
+            id: 14,
+            question: '二次回路（保护、信号等）所用导线规定？',
+            answer: `<div class="koujue">口诀：<strong>铜、绝、耐、截、色</strong></div>
+                <ul>
+                    <li><strong>铜</strong>：必须使用<strong>铜芯</strong>导线（严禁用铝芯）。</li>
+                    <li><strong>绝</strong>：绝缘强度不低于<strong>500V</strong>，且绝缘良好。</li>
+                    <li><strong>耐</strong>：具有<strong>阻燃</strong>性能。</li>
+                    <li><strong>截</strong>：截面不小于 <strong>1.5mm²</strong>（控制回路）或 <strong>2.5mm²</strong>（电流回路），电压回路不小于 <strong>1.5mm²</strong>。</li>
+                    <li><strong>色</strong>：交流黄绿红，直流正负颜色分明（正深蓝/棕，负浅蓝/灰），且编号清晰。</li>
+                </ul>`
+        }
+    ];
+
+    // ============================================================
+    //  状态管理
+    // ============================================================
+
+    const state = {
+        currentSection: 'fill',
+        fillAnswers: new Array(fillData.length).fill(''),
+        choiceAnswers: new Array(choiceData.length).fill(null),
+        judgeAnswers: new Array(judgeData.length).fill(null),
+        fillLocked: new Array(fillData.length).fill(false),
+        choiceLocked: new Array(choiceData.length).fill(false),
+        judgeLocked: new Array(judgeData.length).fill(false),
+        modalTimer: null,
+        isModalOpen: false,
+        pendingJump: null,
+    };
+
+    const $ = id => document.getElementById(id);
+    const fillContainer = $('fillContainer');
+    const choiceContainer = $('choiceContainer');
+    const judgeContainer = $('judgeContainer');
+    const shortContainer = $('shortContainer');
+    const fillProgress = $('fillProgress');
+    const choiceProgress = $('choiceProgress');
+    const judgeProgress = $('judgeProgress');
+    const fillSubmitBtn = $('fillSubmitBtn');
+    const choiceSubmitBtn = $('choiceSubmitBtn');
+    const judgeSubmitBtn = $('judgeSubmitBtn');
+    const modalOverlay = $('modalOverlay');
+    const modalTitle = $('modalTitle');
+    const modalDesc = $('modalDesc');
+    const modalCountdown = $('modalCountdown');
+    const modalConfirm = $('modalConfirm');
+    const modalCancel = $('modalCancel');
+    const navTabs = document.querySelectorAll('.nav-tab');
+
+    // ============================================================
+    //  通用滚动到下一题
+    // ============================================================
+
+    function scrollToNext(currentIdx, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const cards = container.querySelectorAll('.question-card');
+        const nextIdx = currentIdx + 1;
+        if (nextIdx < cards.length) {
+            setTimeout(() => {
+                cards[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+    }
+
+    // ============================================================
+    //  填空题
+    // ============================================================
+
+    function renderFill() {
+        let html = '';
+        fillData.forEach((q, idx) => {
+            const parts = q.text.split('____');
+            let inner = '';
+            parts.forEach((part, pi) => {
+                inner += part;
+                if (pi < parts.length - 1) {
+                    const disabled = state.fillLocked[idx] ? 'disabled' : '';
+                    inner += `<input class="blank-input" data-idx="${idx}" type="text" placeholder="填写答案" value="${state.fillAnswers[idx] || ''}" autocomplete="off" ${disabled}>`;
+                }
+            });
+            const lockedClass = state.fillLocked[idx] ? 'locked' : '';
+            html += `
+                <div class="question-card ${lockedClass}" data-idx="${idx}">
+                    <div class="q-head">
+                        <span class="q-label">${q.id}.</span>
+                        <span class="q-text">${inner}</span>
+                    </div>
+                    <div class="feedback" id="fillFb${idx}"></div>
+                </div>
+            `;
+        });
+        fillContainer.innerHTML = html;
+
+        fillContainer.querySelectorAll('.blank-input:not([disabled])').forEach(inp => {
+            const idx = parseInt(inp.dataset.idx);
+            inp.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') this.blur();
+            });
+            inp.addEventListener('blur', function() {
+                if (state.fillLocked[idx]) return;
+                const val = this.value.trim();
+                if (val === '') return;
+                lockFill(idx);
+            });
+        });
+        updateFillProgress();
+    }
+
+    function lockFill(idx) {
+        if (state.fillLocked[idx]) return;
+        const inp = fillContainer.querySelector(`.blank-input[data-idx="${idx}"]`);
+        if (!inp) return;
+        const val = inp.value.trim();
+        if (val === '') return;
+        state.fillAnswers[idx] = val;
+        state.fillLocked[idx] = true;
+        inp.disabled = true;
+        const q = fillData[idx];
+        const fb = document.getElementById(`fillFb${idx}`);
+        const isCorrect = (val === q.answer);
+        fb.style.display = 'flex';
+        if (isCorrect) {
+            fb.className = 'feedback correct show';
+            fb.innerHTML = `<span class="fb-icon">✅</span> 正确！`;
+            inp.classList.add('correct');
+        } else {
+            fb.className = 'feedback wrong show';
+            fb.innerHTML = `<span class="fb-icon">❌</span> 错误，正确答案：<strong>${q.answer}</strong>`;
+            inp.classList.add('wrong');
+        }
+        const card = inp.closest('.question-card');
+        if (card) card.classList.add('locked');
+        updateFillProgress();
+        scrollToNext(idx, 'fillContainer');
+    }
+
+    function updateFillProgress() {
+        const locked = state.fillLocked.filter(v => v).length;
+        fillProgress.innerHTML = `已锁定 <strong>${locked}</strong> / ${fillData.length}`;
+        fillSubmitBtn.disabled = (locked < fillData.length);
+    }
+
+    // ============================================================
+    //  选择题
+    // ============================================================
+
+    function renderChoice() {
+        let html = '';
+        choiceData.forEach((q, idx) => {
+            const selectedIdx = state.choiceAnswers[idx];
+            const locked = state.choiceLocked[idx];
+            html += `
+                <div class="question-card ${locked ? 'locked' : ''}" data-idx="${idx}">
+                    <div class="q-head">
+                        <span class="q-label">${q.id}.</span>
+                        <span class="q-text">${q.text}</span>
+                    </div>
+                    <div class="options-grid" data-idx="${idx}">
+            `;
+            q.options.forEach((opt, oi) => {
+                const isSelected = (selectedIdx === oi);
+                const disabled = locked ? 'disabled' : '';
+                html += `
+                    <button class="option-btn ${isSelected ? 'selected' : ''}" data-optidx="${oi}" ${disabled}>
+                        <span class="opt-label">${String.fromCharCode(65 + oi)}.</span> ${opt.substring(3)}
+                    </button>
+                `;
+            });
+            html += `</div>
+                    <div class="feedback" id="choiceFb${idx}"></div>
+                </div>`;
+        });
+        choiceContainer.innerHTML = html;
+
+        choiceContainer.querySelectorAll('.options-grid').forEach(grid => {
+            const idx = parseInt(grid.dataset.idx);
+            if (state.choiceLocked[idx]) return;
+            grid.querySelectorAll('.option-btn:not([disabled])').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (state.choiceLocked[idx]) return;
+                    const oi = parseInt(this.dataset.optidx);
+                    state.choiceAnswers[idx] = oi;
+                    lockChoice(idx);
+                });
+            });
+        });
+        choiceData.forEach((_, idx) => {
+            if (state.choiceLocked[idx]) showChoiceFeedback(idx);
+        });
+        updateChoiceProgress();
+    }
+
+    function lockChoice(idx) {
+        if (state.choiceLocked[idx]) return;
+        state.choiceLocked[idx] = true;
+        const grid = choiceContainer.querySelector(`.options-grid[data-idx="${idx}"]`);
+        if (!grid) return;
+        grid.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+        const selected = state.choiceAnswers[idx];
+        grid.querySelectorAll('.option-btn').forEach((b, oi) => {
+            if (oi === selected) b.classList.add('selected');
+        });
+        const card = grid.closest('.question-card');
+        if (card) card.classList.add('locked');
+        showChoiceFeedback(idx);
+        updateChoiceProgress();
+        scrollToNext(idx, 'choiceContainer');
+    }
+
+    function showChoiceFeedback(idx) {
+        const q = choiceData[idx];
+        const selected = state.choiceAnswers[idx];
+        const fb = document.getElementById(`choiceFb${idx}`);
+        const grid = choiceContainer.querySelector(`.options-grid[data-idx="${idx}"]`);
+        if (!grid || selected === null) return;
+        const correctIdx = q.options.findIndex(opt => opt.startsWith(q.answer + '.'));
+        if (correctIdx === -1) return;
+        const isCorrect = (selected === correctIdx);
+        fb.style.display = 'flex';
+        grid.querySelectorAll('.option-btn').forEach((b, oi) => {
+            b.classList.remove('correct-answer', 'wrong-answer');
+            if (oi === correctIdx) b.classList.add('correct-answer');
+            if (oi === selected && !isCorrect) b.classList.add('wrong-answer');
+        });
+        if (isCorrect) {
+            fb.className = 'feedback correct show';
+            fb.innerHTML = `<span class="fb-icon">✅</span> 正确！`;
+        } else {
+            const correctText = q.options[correctIdx];
+            fb.className = 'feedback wrong show';
+            fb.innerHTML = `<span class="fb-icon">❌</span> 错误，正确答案：<strong>${correctText}</strong>`;
+        }
+    }
+
+    function updateChoiceProgress() {
+        const locked = state.choiceLocked.filter(v => v).length;
+        choiceProgress.innerHTML = `已锁定 <strong>${locked}</strong> / ${choiceData.length}`;
+        choiceSubmitBtn.disabled = (locked < choiceData.length);
+    }
+
+    // ============================================================
+    //  判断题
+    // ============================================================
+
+    function renderJudge() {
+        let html = '';
+        judgeData.forEach((q, idx) => {
+            const val = state.judgeAnswers[idx];
+            const locked = state.judgeLocked[idx];
+            html += `
+                <div class="question-card ${locked ? 'locked' : ''}" data-idx="${idx}">
+                    <div class="q-head">
+                        <span class="q-label">${q.id}.</span>
+                        <span class="q-text">${q.text}</span>
+                    </div>
+                    <div class="judge-group" data-idx="${idx}">
+                        <button class="judge-btn ${val === true ? 'selected-true' : ''}" data-value="true" ${locked ? 'disabled' : ''}>✅ 对</button>
+                        <button class="judge-btn ${val === false ? 'selected-false' : ''}" data-value="false" ${locked ? 'disabled' : ''}>❌ 错</button>
+                    </div>
+                    <div class="feedback" id="judgeFb${idx}"></div>
+                </div>
+            `;
+        });
+        judgeContainer.innerHTML = html;
+
+        judgeContainer.querySelectorAll('.judge-group').forEach(group => {
+            const idx = parseInt(group.dataset.idx);
+            if (state.judgeLocked[idx]) return;
+            group.querySelectorAll('.judge-btn:not([disabled])').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (state.judgeLocked[idx]) return;
+                    const val = this.dataset.value === 'true';
+                    state.judgeAnswers[idx] = val;
+                    lockJudge(idx);
+                });
+            });
+        });
+        judgeData.forEach((_, idx) => {
+            if (state.judgeLocked[idx]) showJudgeFeedback(idx);
+        });
+        updateJudgeProgress();
+    }
+
+    function lockJudge(idx) {
+        if (state.judgeLocked[idx]) return;
+        state.judgeLocked[idx] = true;
+        const group = judgeContainer.querySelector(`.judge-group[data-idx="${idx}"]`);
+        if (!group) return;
+        group.querySelectorAll('.judge-btn').forEach(b => b.disabled = true);
+        const val = state.judgeAnswers[idx];
+        group.querySelectorAll('.judge-btn').forEach(b => {
+            const bVal = b.dataset.value === 'true';
+            if (bVal === val) b.classList.add(val ? 'selected-true' : 'selected-false');
+        });
+        const card = group.closest('.question-card');
+        if (card) card.classList.add('locked');
+        showJudgeFeedback(idx);
+        updateJudgeProgress();
+        scrollToNext(idx, 'judgeContainer');
+    }
+
+    function showJudgeFeedback(idx) {
+        const q = judgeData[idx];
+        const val = state.judgeAnswers[idx];
+        const fb = document.getElementById(`judgeFb${idx}`);
+        const group = judgeContainer.querySelector(`.judge-group[data-idx="${idx}"]`);
+        if (!group || val === null) return;
+        const isCorrect = (val === q.answer);
+        fb.style.display = 'flex';
+        group.querySelectorAll('.judge-btn').forEach(b => {
+            b.classList.remove('correct-answer', 'wrong-answer');
+            const bVal = b.dataset.value === 'true';
+            if (bVal === q.answer) b.classList.add('correct-answer');
+            if (bVal === val && !isCorrect) b.classList.add('wrong-answer');
+        });
+        if (isCorrect) {
+            fb.className = 'feedback correct show';
+            fb.innerHTML = `<span class="fb-icon">✅</span> 正确！`;
+        } else {
+            const correctText = q.answer ? '对' : '错';
+            fb.className = 'feedback wrong show';
+            fb.innerHTML = `<span class="fb-icon">❌</span> 错误，正确答案：<strong>${correctText}</strong>`;
+        }
+    }
+
+    function updateJudgeProgress() {
+        const locked = state.judgeLocked.filter(v => v).length;
+        judgeProgress.innerHTML = `已锁定 <strong>${locked}</strong> / ${judgeData.length}`;
+        judgeSubmitBtn.disabled = (locked < judgeData.length);
+    }
+
+    // ============================================================
+    //  简答题渲染（折叠）
+    // ============================================================
+
+    function renderShort() {
+        let html = '';
+        shortData.forEach((item, idx) => {
+            html += `
+                <div class="short-card" data-idx="${idx}">
+                    <div class="short-header" data-target="shortBody${idx}">
+                        <span class="q-label">${item.id}.</span>
+                        <span class="q-title">${item.question}</span>
+                        <span class="toggle-icon" id="shortIcon${idx}">▼</span>
+                    </div>
+                    <div class="short-body" id="shortBody${idx}">
+                        <div class="answer-content">${item.answer}</div>
+                    </div>
+                </div>
+            `;
+        });
+        shortContainer.innerHTML = html;
+
+        shortContainer.querySelectorAll('.short-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const bodyId = this.dataset.target;
+                const body = document.getElementById(bodyId);
+                const icon = this.querySelector('.toggle-icon');
+                if (body) {
+                    body.classList.toggle('open');
+                    if (icon) icon.classList.toggle('open');
+                }
+            });
+        });
+    }
+
+    // ============================================================
+    //  切换区域 & 模态框
+    // ============================================================
+
+    function switchSection(sectionId) {
+        document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+        const target = document.getElementById('section-' + sectionId);
+        if (target) target.classList.add('active');
+        navTabs.forEach(tab => {
+            tab.classList.remove('active');
+            if (tab.dataset.section === sectionId) tab.classList.add('active');
+        });
+        state.currentSection = sectionId;
+        closeModal();
+    }
+
+    function openModal(title, desc, targetSection) {
+        if (state.isModalOpen) return;
+        state.isModalOpen = true;
+        state.pendingJump = targetSection;
+        modalTitle.textContent = title;
+        modalDesc.textContent = desc;
+        modalOverlay.classList.add('show');
+        let count = 3;
+        modalCountdown.innerHTML = `<span>${count}</span>`;
+        if (state.modalTimer) clearInterval(state.modalTimer);
+        state.modalTimer = setInterval(() => {
+            count--;
+            modalCountdown.innerHTML = `<span>${count}</span>`;
+            if (count <= 0) {
+                clearInterval(state.modalTimer);
+                state.modalTimer = null;
+                doJump(targetSection);
+            }
+        }, 1000);
+        modalConfirm.onclick = function() {
+            clearInterval(state.modalTimer);
+            state.modalTimer = null;
+            doJump(targetSection);
         };
-
-        let countdownTimer = null; // 倒计时定时器句柄
-        let countdownSeconds = 0; // 当前剩余秒数
-
-        function switchTab(tabName) {
-            // 清除可能正在运行的倒计时
-            clearCountdown();
-            // 更新按钮状态
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.tab === tabName);
-            });
-            // 更新内容显示
-            Object.keys(contents).forEach(key => {
-                contents[key].classList.toggle('active', key === tabName);
-            });
-            // 平滑滚动到顶部
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // 手动点击导航切换
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                switchTab(this.dataset.tab);
-            });
-        });
-
-        // ================================================================
-        // 倒计时控制函数
-        // ================================================================
-        const countdownBar = document.getElementById('countdownBar');
-        const countdownText = document.getElementById('countdownText');
-        const jumpBtn = document.getElementById('countdownJumpBtn');
-        const cancelBtn = document.getElementById('countdownCancelBtn');
-
-        /** 清除倒计时并隐藏提示条 */
-        function clearCountdown() {
-            if (countdownTimer) {
-                clearInterval(countdownTimer);
-                countdownTimer = null;
-            }
-            countdownBar.style.display = 'none';
-        }
-
-        /** 启动倒计时
-         * @param {number} seconds - 倒计时秒数（默认3秒）
-         * @param {string} targetTab - 目标标签名 ('choice' | 'judge' | 'review')
-         * @param {string} message - 提示文字（如 "填空题已完成，即将跳转到选择题..."）
-         * @param {string} scrollSelector - 跳转后滚动定位选择器
-         */
-        function startCountdown(seconds, targetTab, message, scrollSelector) {
-            // 清除之前的倒计时
-            clearCountdown();
-
-            countdownSeconds = seconds || 3;
-            countdownText.textContent = message + ' ⏳ ' + countdownSeconds + ' 秒';
-            countdownBar.style.display = 'flex';
-
-            // 立即跳转按钮
-            jumpBtn.onclick = function() {
-                clearCountdown();
-                doJump(targetTab, scrollSelector);
-            };
-
-            // 取消按钮（取消倒计时，留在当前页面）
-            cancelBtn.onclick = function() {
-                clearCountdown();
-            };
-
-            // 启动倒计时
-            countdownTimer = setInterval(function() {
-                countdownSeconds--;
-                if (countdownSeconds <= 0) {
-                    clearCountdown();
-                    doJump(targetTab, scrollSelector);
-                } else {
-                    // 更新显示的文字，替换掉原有的秒数
-                    // 简单处理：直接重新拼接
-                    const baseMsg = message.replace(/\s*\d+\s*秒$/, '');
-                    countdownText.textContent = baseMsg + ' ⏳ ' + countdownSeconds + ' 秒';
-                }
-            }, 1000);
-        }
-
-        /** 执行实际跳转 */
-        function doJump(targetTab, scrollSelector) {
-            switchTab(targetTab);
-            if (scrollSelector) {
-                const el = document.querySelector(scrollSelector);
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-        // ================================================================
-        // 完整答案库
-        // ================================================================
-        const answerLib = {
-            fill: {
-                1: { ans: "总功率（或电压与电流有效值的乘积）", desc: "✅ 总功率（或电压与电流有效值的乘积）" },
-                2: { ans: "2～3", desc: "✅ 2～3 天" },
-                3: { ans: "短路", desc: "✅ 短路（电压互感器二次严禁短路）" },
-                4: { ans: "电流", desc: "✅ 电流（电感电流不能突变）" },
-                5: { ans: "铁芯", desc: "✅ 铁芯" },
-                6: { ans: "跳闸", desc: "✅ 跳闸" },
-                7: { ans: "自动准同期装置", desc: "✅ 自动准同期装置" },
-                8: { ans: "4～5", desc: "✅ 4～5 天" },
-                9: { ans: "波形（或谐波畸变率）", desc: "✅ 波形（或谐波畸变率）" },
-                10: { ans: "铁芯", desc: "✅ 铁芯" },
-                11: { ans: "预告", desc: "✅ 预告" },
-                12: { ans: "分开", desc: "✅ 根据规程，二次和三次回路必须分开，且整个系统只能有一点且必须有一点可靠接地" },
-                13: { ans: "发出信号", desc: "✅ 发出信号" },
-                14: { ans: "事故", desc: "✅ 事故" },
-                15: { ans: "2", desc: "✅ 2 人" },
-                16: { ans: "0.5（或0.2）", desc: "✅ 0.5（或0.2）级" },
-                17: { ans: "电压", desc: "✅ 电压（电容电压不能突变）" }
-            },
-            radio: {
-                1: { ans: "C", desc: "✅ C 纵联保护，全线瞬时动作" },
-                2: { ans: "A", desc: "✅ A 后备保护" },
-                3: { ans: "D", desc: "✅ D 500V 摇表" },
-                4: { ans: "B", desc: "✅ B 1.5 米" },
-                5: { ans: "A", desc: "✅ A 气体容积" },
-                6: { ans: "B", desc: "✅ B 100V" },
-                7: { ans: "A", desc: "✅ A 增大" },
-                8: { ans: "A", desc: "✅ A 二次谐波" },
-                9: { ans: "C", desc: "✅ C 工作班人员" },
-                10: { ans: "D", desc: "✅ D 励磁回路不属于二次回路" },
-                11: { ans: "B", desc: "✅ B 0.03" },
-                12: { ans: "A", desc: "✅ A 只动作一次" },
-                13: { ans: "D", desc: "✅ D 三相短路电流最大" },
-                14: { ans: "C", desc: "✅ C 断路器失灵保护属于后备保护" },
-                15: { ans: "A", desc: "✅ A 记忆回路受频率影响大" },
-                16: { ans: "D", desc: "✅ D 电流速断易受振荡误动" },
-                17: { ans: "B", desc: "✅ B 暂态稳定" },
-                18: { ans: "B", desc: "✅ B 越近保护效果越好" },
-                19: { ans: "B", desc: "✅ B 吸收无功功率" },
-                20: { ans: "B", desc: "✅ B 2.5mm²" }
-            },
-            judge: {
-                1: { ans: "√", desc: "✅ √" },
-                2: { ans: "√", desc: "✅ √，恒定电流磁通不变，无自感电动势" },
-                3: { ans: "×", desc: "✅ ×，零序电流分布和中性点接地数量、位置强相关" },
-                4: { ans: "×", desc: "✅ ×，220kV 及以上采用近后备" },
-                5: { ans: "×", desc: "✅ ×，保护范围受运行方式影响变化" },
-                6: { ans: "√", desc: "✅ √，预告信号包括警铃和光字牌" },
-                7: { ans: "×", desc: "✅ ×，零序阻抗随接线组别变化" },
-                8: { ans: "×", desc: "✅ ×，每次动作都要统计" },
-                9: { ans: "×", desc: "✅ ×，需专用过励磁保护，不是负序过流" },
-                10: { ans: "×", desc: "✅ ×，油箱内部全部故障都算内部故障，不止线圈" },
-                11: { ans: "×", desc: "✅ ×，不含断路器灭弧分闸时间" },
-                12: { ans: "√", desc: "✅ √，瓦斯与差动互为补充，不可替代" },
-                13: { ans: "×", desc: "✅ ×，交直流严禁同电缆" },
-                14: { ans: "√", desc: "✅ √，正常运行退出启停保护" },
-                15: { ans: "×", desc: "✅ ×，继电保护首要要求是可靠性" },
-                16: { ans: "√", desc: "✅ √，交直流负载线交于静态工作点" },
-                17: { ans: "√", desc: "✅ √，相地高频通道为常用通道形式" }
-            }
+        modalCancel.onclick = function() {
+            clearInterval(state.modalTimer);
+            state.modalTimer = null;
+            closeModal();
         };
+    }
 
-        // ================================================================
-        // 校验函数 + 倒计时跳转
-        // ================================================================
-        function checkFill(num) {
-            const input = document.getElementById('fill' + num).value.trim();
-            const tip = document.getElementById('fillTip' + num);
-            const info = answerLib.fill[num];
-            if (!info) { tip.innerText = '答案未录入';
-                tip.style.display = 'block'; return; }
-            if (input === '') {
-                tip.style.display = 'block';
-                tip.className = 'answer-tip warning';
-                tip.innerText = '⚠️ 请先输入答案！';
+    function closeModal() {
+        modalOverlay.classList.remove('show');
+        state.isModalOpen = false;
+        if (state.modalTimer) {
+            clearInterval(state.modalTimer);
+            state.modalTimer = null;
+        }
+        state.pendingJump = null;
+    }
+
+    function doJump(target) {
+        closeModal();
+        if (target === 'choice') switchSection('choice');
+        else if (target === 'judge') switchSection('judge');
+        else if (target === 'complete') switchSection('complete');
+    }
+
+    // ============================================================
+    //  提交按钮
+    // ============================================================
+
+    fillSubmitBtn.addEventListener('click', function() {
+        if (this.disabled) return;
+        openModal('📝 填空题完成', '你已锁定所有填空题，是否前往「选择题」区域？', 'choice');
+    });
+    choiceSubmitBtn.addEventListener('click', function() {
+        if (this.disabled) return;
+        openModal('🔘 选择题完成', '你已锁定所有选择题，是否前往「判断题」区域？', 'judge');
+    });
+    judgeSubmitBtn.addEventListener('click', function() {
+        if (this.disabled) return;
+        openModal('⚖️ 判断题完成', '你已锁定所有判断题，是否查看完成页面？', 'complete');
+    });
+
+    // ============================================================
+    //  导航（自由切换，完成页需检查）
+    // ============================================================
+
+    navTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const section = this.dataset.section;
+            if (section === 'complete') {
+                const filled = state.fillLocked.filter(v => v).length;
+                const chosen = state.choiceLocked.filter(v => v).length;
+                const judged = state.judgeLocked.filter(v => v).length;
+                if (filled < fillData.length || chosen < choiceData.length || judged < judgeData.length) {
+                    alert('⚠️ 请先完成「填空题 → 选择题 → 判断题」全部内容，再查看完成页。');
+                    return;
+                }
+                switchSection('complete');
                 return;
             }
-            tip.style.display = 'block';
-            const isCorrect = input === info.ans || info.ans.includes(input) || input.includes(info.ans);
-            tip.className = isCorrect ? 'answer-tip right' : 'answer-tip error';
-            tip.innerText = isCorrect ? '🎉 回答正确！' + info.desc : '❌ 回答错误。' + info.desc;
-
-            // ---- 跳转逻辑 ----
-            if (num < 17) {
-                const next = document.getElementById('fill' + (num + 1));
-                if (next) next.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                // 填空题全部完成 → 3秒后跳转到选择题
-                startCountdown(3, 'choice', '📝 填空题已完成，3 秒后自动跳转到「选择题」...', '#tab-choice .section-title');
-            }
-        }
-
-        function checkRadio(num) {
-            const radios = document.getElementsByName('rad' + num);
-            let selected = '';
-            for (const r of radios)
-                if (r.checked) { selected = r.value; break; }
-            const tip = document.getElementById('radTip' + num);
-            const info = answerLib.radio[num];
-            if (!info) { tip.innerText = '答案未录入';
-                tip.style.display = 'block'; return; }
-            tip.style.display = 'block';
-            if (!selected) {
-                tip.className = 'answer-tip warning';
-                tip.innerText = '⚠️ 请先选择答案！';
-                return;
-            }
-            tip.className = (selected === info.ans) ? 'answer-tip right' : 'answer-tip error';
-            tip.innerText = (selected === info.ans) ? '🎉 回答正确！' + info.desc : '❌ 回答错误。' + info.desc;
-
-            // ---- 跳转逻辑 ----
-            const total = 20;
-            if (num < total) {
-                const nextRadios = document.getElementsByName('rad' + (num + 1));
-                if (nextRadios.length > 0) {
-                    const card = nextRadios[0].closest('.question-card');
-                    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            } else {
-                // 选择题全部完成 → 3秒后跳转到判断题
-                startCountdown(3, 'judge', '🔘 选择题已完成，3 秒后自动跳转到「判断题」...', '#tab-judge .section-title');
-            }
-        }
-
-        function checkJudge(num) {
-            const radios = document.getElementsByName('jud' + num);
-            let selected = '';
-            for (const r of radios)
-                if (r.checked) { selected = r.value; break; }
-            const tip = document.getElementById('judTip' + num);
-            const info = answerLib.judge[num];
-            if (!info) { tip.innerText = '答案未录入';
-                tip.style.display = 'block'; return; }
-            tip.style.display = 'block';
-            if (!selected) {
-                tip.className = 'answer-tip warning';
-                tip.innerText = '⚠️ 请先选择「正确」或「错误」！';
-                return;
-            }
-            tip.className = (selected === info.ans) ? 'answer-tip right' : 'answer-tip error';
-            tip.innerText = (selected === info.ans) ? '🎉 回答正确！' + info.desc : '❌ 回答错误。' + info.desc;
-
-            // ---- 跳转逻辑 ----
-            const total = 17;
-            if (num < total) {
-                const nextRadios = document.getElementsByName('jud' + (num + 1));
-                if (nextRadios.length > 0) {
-                    const card = nextRadios[0].closest('.question-card');
-                    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            } else {
-                // 判断题全部完成 → 3秒后跳转到复习资料
-                startCountdown(3, 'review', '⚖️ 判断题已完成，3 秒后自动跳转到「复习资料」...', '#tab-review .section-title');
-            }
-        }
-
-        // ================================================================
-        // 下载当前内容
-        // ================================================================
-        function downloadCurrent() {
-            const activeTab = document.querySelector('.tab-btn.active');
-            const tabName = activeTab ? activeTab.dataset.tab : 'review';
-            let lines = ['═══════════════════════════════════════════════════════',
-                '  继电保护 · ' + (tabName === 'fill' ? '填空题' : tabName === 'choice' ? '选择题' : tabName === 'judge' ?
-                    '判断题' : tabName === 'qa' ? '简答题' : '复习资料'),
-                '═══════════════════════════════════════════════════════', ''
-            ];
-            if (tabName === 'fill') {
-                lines.push('【填空题答案】');
-                for (let i = 1; i <= 17; i++) {
-                    const info = answerLib.fill[i];
-                    if (info) lines.push(i + '. ' + info.ans);
-                }
-            } else if (tabName === 'choice') {
-                lines.push('【选择题答案】');
-                const ans = ['', 'C', 'A', 'D', 'B', 'A', 'B', 'A', 'A', 'C', 'D', 'B', 'A', 'D', 'C', 'A', 'D', 'B', 'B', 'B',
-                    'B'
-                ];
-                for (let i = 1; i <= 20; i++) {
-                    lines.push(i + '. ' + ans[i]);
-                }
-            } else if (tabName === 'judge') {
-                lines.push('【判断题答案】');
-                const ans = ['', '√', '√', '×', '×', '×', '√', '×', '×', '×', '×', '×', '√', '×', '√', '×', '√', '√'];
-                for (let i = 1; i <= 17; i++) {
-                    lines.push(i + '. ' + ans[i]);
-                }
-            } else if (tabName === 'qa') {
-                lines.push('【简答题速记】');
-                const qaTexts = [
-                    '1. 继电保护装置：反应故障/异常，跳闸或发信号。功能：故障切除，异常告警。安全处理：保障稳定，防止设备损坏。',
-                    '2. 故障（短路电流剧增）→ 事故（系统破坏）；不正常运行（过负荷等）可能发展为故障。',
-                    '3. 最大运行方式：等值阻抗最小，短路电流最大；最小运行方式：等值阻抗最大，短路电流最小。',
-                    '4. 常开(NO)：未动作断开，动作闭合；常闭(NC)：未动作闭合，动作断开。',
-                    '5. 测量阻抗 Zm=U/I，反映故障距离；整定阻抗 Zset 为预设动作边界。',
-                    '6. 功能：跳闸与发信号。四性：选择性、快速性、灵敏性、可靠性。',
-                    '7. 主保护：切除本设备故障；后备保护：主保护拒动时动作（近后备/远后备）；辅助保护：补充主保护。',
-                    '8. CT 二次开路 → 高电压；PT 二次短路 → 大电流烧毁。',
-                    '9. 短路概念：不同电位导体短接。分类：三相、两相、两相接地、单相接地。危害：大电流发热、电压降低、系统失稳。',
-                    '10. 变压器故障：相间短路、匝间短路、接地、铁芯故障；不正常：过负荷、过励磁、油面降低、冷却故障。',
-                    '11. 纵联保护：利用通道比较两端电气量，实现线路全长快速切除。',
-                    '12. 电流速断：躲过最大运行方式下末端故障电流，无时限或小延时，保护范围仅限本线路一部分。',
-                    '13. 零序整定：①躲本线末端最大零序电流；②与相邻线路配合；③考虑运行方式变化。',
-                    '14. 距离保护：反应故障点阻抗(距离)。R-X平面上动作区为圆或四边形，测量阻抗落入则动作。',
-                    '15. 相分量法：直接使用 A、B、C 三相电气量，不转换为对称分量。'
-                ];
-                qaTexts.forEach(t => lines.push(t));
-            } else {
-                lines.push('【复习资料摘要】');
-                lines.push('• 模块一：电力变压器继电保护');
-                lines.push('  - 故障：内部（相间/匝间/接地）、外部（引出线/套管）');
-                lines.push('  - 异常：过负荷、过励磁、油面降低、冷却故障');
-                lines.push('  - 七类保护：瓦斯、纵差/速断、后备、接地、过负荷、过励磁、辅助');
-                lines.push('  - 双重主保护：瓦斯 + 纵差动');
-                lines.push('• 模块二：距离保护基础');
-                lines.push('  - 阻抗继电器：测量阻抗与整定值比较');
-                lines.push('  - 方向圆特性：仅正方向动作，反向不误动');
-                lines.push('  - 优势：保护范围不受运行方式影响');
-                lines.push('• 高频简答：瓦斯保护、双重主保护、距离保护优势、方向圆方向性、过负荷保护');
-            }
-            lines.push('', '═══════════════════════════════════════════════════════');
-            const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = '继电保护_' + tabName + '_内容.txt';
-            a.click();
-            URL.revokeObjectURL(a.href);
-        }
-
-        // ================================================================
-        // 键盘快捷键（回车提交）
-        // ================================================================
-        document.querySelectorAll('.input-row input[type="text"]').forEach((inp) => {
-            inp.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const id = inp.id;
-                    if (id.startsWith('fill')) {
-                        const num = id.replace('fill', '');
-                        checkFill(num);
-                    }
-                }
-            });
+            switchSection(section);
         });
+    });
 
-        document.querySelectorAll('.opt-item input[type="radio"]').forEach((radio) => {
-            radio.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const name = radio.name;
-                    if (name && name.startsWith('rad')) {
-                        const num = name.replace('rad', '');
-                        const group = document.getElementsByName(name);
-                        let checked = false;
-                        for (const r of group)
-                            if (r.checked) { checked = true; break; }
-                        if (checked) {
-                            checkRadio(num);
-                        } else {
-                            const tip = document.getElementById('radTip' + num);
-                            tip.style.display = 'block';
-                            tip.className = 'answer-tip warning';
-                            tip.innerText = '⚠️ 请先选择答案！';
-                        }
-                    } else if (name && name.startsWith('jud')) {
-                        const num = name.replace('jud', '');
-                        const group = document.getElementsByName(name);
-                        let checked = false;
-                        for (const r of group)
-                            if (r.checked) { checked = true; break; }
-                        if (checked) {
-                            checkJudge(num);
-                        } else {
-                            const tip = document.getElementById('judTip' + num);
-                            tip.style.display = 'block';
-                            tip.className = 'answer-tip warning';
-                            tip.innerText = '⚠️ 请先选择「正确」或「错误」！';
-                        }
-                    }
-                }
-            });
+    // ============================================================
+    //  每日弹窗（沐春风）
+    // ============================================================
+
+    function showPopupIfNeeded() {
+        const today = new Date().toLocaleDateString('zh-CN');
+        const lastDate = localStorage.getItem('popupDate_muchunfeng');
+        if (lastDate === today) return;
+        const popup = document.getElementById('popupOverlay');
+        popup.classList.add('show');
+        document.getElementById('popupConfirm').addEventListener('click', function() {
+            popup.classList.remove('show');
+            localStorage.setItem('popupDate_muchunfeng', today);
         });
-    </script>
+    }
+
+    // ============================================================
+    //  初始化
+    // ============================================================
+
+    renderFill();
+    renderChoice();
+    renderJudge();
+    renderShort();
+    showPopupIfNeeded();
+
+    console.log('✅ 牵引变电所培训考试题库已加载（间距已优化）');
+</script>
 </body>
 </html>
